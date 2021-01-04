@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     [Header("Word Data")]
     [SerializeField] private LayerMask plataformLayerMask;
+    [SerializeField] private LayerMask movebleLayerMask;
 
     [Header("Player Data")]
     private SpriteRenderer bodySpriteRenderer;
@@ -22,6 +23,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpSpeed = 100;
     [SerializeField] private int maxJumpQtd = 1;
     [SerializeField] private float extraHeightText = .5f;
+    [SerializeField] private float moveObjectsForce = 2f;
+    [SerializeField] private float raycastAreaMaxRadius = .5f;
 
 
 
@@ -35,8 +38,6 @@ public class Player : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody2D>();
         PlayerType = PlayerTypes.YIN;
         jumpQtd = maxJumpQtd;
-
-
     }
 
 
@@ -55,6 +56,8 @@ public class Player : MonoBehaviour
         controller.Terrain.Jump.performed += _ => Jump();
         controller.Terrain.ChangeTypeYin.performed += _ => ChangePlayerType(PlayerTypes.YIN);
         controller.Terrain.ChangeTypeYang.performed += _ => ChangePlayerType(PlayerTypes.YANG);
+        controller.Terrain.AttractionRepution.performed += _ => ActivateAttractRepution();
+        controller.Terrain.AttractionRepution.canceled += _ => DeactivateAttractRepution();
 
     }
 
@@ -67,12 +70,72 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        IsGrounded();
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        if(playerMainCollider != null)
+            Gizmos.DrawWireSphere(playerMainCollider.bounds.center, raycastAreaMaxRadius);
     }
 
     #endregion
 
     #region MyMethods
+
+    private void ActivateAttractRepution()
+    {
+        StartCoroutine("MovebleObjects");
+    }
+
+    private void DeactivateAttractRepution()
+    {
+        StopCoroutine("MovebleObjects");
+    }
+
+    IEnumerator MovebleObjects()
+    {
+        while (true)
+        {
+            RaycastHit2D[] boxes = Physics2D.CircleCastAll(playerMainCollider.bounds.center, raycastAreaMaxRadius, Vector3.left, 0, movebleLayerMask);
+            //print(boxes.Length);
+            foreach (RaycastHit2D box in boxes)
+            {
+                Color rayColor;
+                Vector2 direction;
+                if (playerType == PlayerTypes.YIN)
+                {
+                    direction = (Vector32Vector2(playerMainCollider.bounds.center) - box.point);
+                    rayColor = Color.green;
+
+                }
+                else
+                {
+                    direction = (box.point - Vector32Vector2(playerMainCollider.bounds.center));
+                    rayColor = Color.red;
+
+                }
+
+                direction.Normalize();
+                Debug.DrawRay(box.collider.bounds.center, direction, rayColor);
+
+
+                box.rigidbody.AddForce(direction * moveObjectsForce);
+
+
+            }
+
+            yield return new WaitForEndOfFrame();
+
+        }
+        
+    }
+
+    private Vector2 Vector32Vector2(Vector3 vector)
+    {
+        Vector2 aux = vector;
+        return vector;
+    }
 
     private bool IsGrounded()
     {
@@ -93,6 +156,8 @@ public class Player : MonoBehaviour
 
         return raycastHit.collider != null;
     }
+
+    
     private void Jump()
     {
         if (IsGrounded())

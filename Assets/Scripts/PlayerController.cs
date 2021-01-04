@@ -49,6 +49,14 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""AttractionRepution"",
+                    ""type"": ""Button"",
+                    ""id"": ""5e560d73-de30-4a8e-880a-6f8f65a8b05f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -117,6 +125,17 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""action"": ""ChangeTypeYang"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd98318d-d81d-40b0-8c1b-c6e5a885817b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttractionRepution"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -129,6 +148,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         m_Terrain_Jump = m_Terrain.FindAction("Jump", throwIfNotFound: true);
         m_Terrain_ChangeTypeYin = m_Terrain.FindAction("ChangeTypeYin", throwIfNotFound: true);
         m_Terrain_ChangeTypeYang = m_Terrain.FindAction("ChangeTypeYang", throwIfNotFound: true);
+        m_Terrain_AttractionRepution = m_Terrain.FindAction("AttractionRepution", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,6 +202,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
     private readonly InputAction m_Terrain_Jump;
     private readonly InputAction m_Terrain_ChangeTypeYin;
     private readonly InputAction m_Terrain_ChangeTypeYang;
+    private readonly InputAction m_Terrain_AttractionRepution;
     public struct TerrainActions
     {
         private @PlayerController m_Wrapper;
@@ -190,6 +211,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Terrain_Jump;
         public InputAction @ChangeTypeYin => m_Wrapper.m_Terrain_ChangeTypeYin;
         public InputAction @ChangeTypeYang => m_Wrapper.m_Terrain_ChangeTypeYang;
+        public InputAction @AttractionRepution => m_Wrapper.m_Terrain_AttractionRepution;
         public InputActionMap Get() { return m_Wrapper.m_Terrain; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -211,6 +233,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @ChangeTypeYang.started -= m_Wrapper.m_TerrainActionsCallbackInterface.OnChangeTypeYang;
                 @ChangeTypeYang.performed -= m_Wrapper.m_TerrainActionsCallbackInterface.OnChangeTypeYang;
                 @ChangeTypeYang.canceled -= m_Wrapper.m_TerrainActionsCallbackInterface.OnChangeTypeYang;
+                @AttractionRepution.started -= m_Wrapper.m_TerrainActionsCallbackInterface.OnAttractionRepution;
+                @AttractionRepution.performed -= m_Wrapper.m_TerrainActionsCallbackInterface.OnAttractionRepution;
+                @AttractionRepution.canceled -= m_Wrapper.m_TerrainActionsCallbackInterface.OnAttractionRepution;
             }
             m_Wrapper.m_TerrainActionsCallbackInterface = instance;
             if (instance != null)
@@ -227,6 +252,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @ChangeTypeYang.started += instance.OnChangeTypeYang;
                 @ChangeTypeYang.performed += instance.OnChangeTypeYang;
                 @ChangeTypeYang.canceled += instance.OnChangeTypeYang;
+                @AttractionRepution.started += instance.OnAttractionRepution;
+                @AttractionRepution.performed += instance.OnAttractionRepution;
+                @AttractionRepution.canceled += instance.OnAttractionRepution;
             }
         }
     }
@@ -237,5 +265,6 @@ public class @PlayerController : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnChangeTypeYin(InputAction.CallbackContext context);
         void OnChangeTypeYang(InputAction.CallbackContext context);
+        void OnAttractionRepution(InputAction.CallbackContext context);
     }
 }
