@@ -1,0 +1,14 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum PlayerTypes{
+    YIN,
+    YANG
+}
+
+public enum LayersTypes
+{
+    YIN = 8,
+    YANG = 9
+}
