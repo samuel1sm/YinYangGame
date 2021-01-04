@@ -10,5 +10,6 @@ public enum PlayerTypes{
 public enum LayersTypes
 {
     YIN = 8,
-    YANG = 9
+    YANG = 9,
+    PLAYER = 12
 }

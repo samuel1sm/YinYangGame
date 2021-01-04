@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private int jumpQtd ;
     private bool isSpirit;
     private Transform residualBody;
+    bool returnMovementHasEnded;
 
     [Header("Player Configs")]
     [SerializeField] private PlayerTypes playerType;
@@ -27,12 +28,16 @@ public class Player : MonoBehaviour
     [SerializeField] private float extraHeightText = .5f;
     [SerializeField] private float moveObjectsForce = 2f;
     [SerializeField] private float raycastAreaMaxRadius = .5f;
+    [SerializeField] private float returnForce = 0.5f;
+    [SerializeField] private float acceptableJoinDistance = 0.5f;
+    //[SerializeField] private float reaturnValue = 0.5f;
 
 
 
     #region UnityMethods
     private void Awake()
     {
+        returnMovementHasEnded = true;
         residualBody = transform.GetChild(0).GetChild(0);
         isSpirit = false;
         playerMainCollider = GetComponent<Collider2D>();
@@ -87,7 +92,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (isSpirit)
+        {
+            playerRigidbody.velocity = Vector3.zero;
+        }
     }
 
 
@@ -115,16 +123,19 @@ public class Player : MonoBehaviour
         isSpirit = !isSpirit;
         if (isSpirit)
         {
-            playerRigidbody.velocity = Vector2.zero;
-            playerRigidbody.gravityScale = 0;
+            ChangePlayerLayer(false);
             controller.Terrain.Disable();
             controller.Air.Enable();
+            playerRigidbody.velocity = Vector2.zero;
+            playerRigidbody.gravityScale = 0;
             residualBody.parent = null;
 
         }
         else
         {
-            StartCoroutine(MoveToObject());
+            StartCoroutine(Move2Object());
+            StartCoroutine(ReturnPlayerMovement());
+
             //residualBody.parent = transform.GetChild(0);
             //playerRigidbody.gravityScale = 1;
             //controller.Air.Disable();
@@ -134,12 +145,12 @@ public class Player : MonoBehaviour
 
     private void ActivateAttractRepution()
     {
-        StartCoroutine(MovebleObjects());
+        StartCoroutine("MovebleObjects");
     }
 
     private void DeactivateAttractRepution()
     {
-        StopCoroutine(MovebleObjects());
+        StopCoroutine("MovebleObjects");
     }
 
     IEnumerator MovebleObjects()
@@ -147,7 +158,7 @@ public class Player : MonoBehaviour
         while (true)
         {
             RaycastHit2D[] boxes = Physics2D.CircleCastAll(playerMainCollider.bounds.center, raycastAreaMaxRadius, Vector3.left, 0, movebleLayerMask);
-            //print(boxes.Length);
+
             foreach (RaycastHit2D box in boxes)
             {
                 Color rayColor;
@@ -180,14 +191,33 @@ public class Player : MonoBehaviour
         
     }
 
-    IEnumerator MoveToObject()
+    IEnumerator Move2Object()
     {
+        playerMainCollider.enabled= false;
         while (true)
         {
-            playerRigidbody.MovePosition(residualBody.position);
-            Vector2 aux = residualBody.position;
-            yield return new WaitUntil(() =>  playerRigidbody.position == aux);
+            transform.position = Vector3.Lerp(transform.position, residualBody.position, returnForce * Time.deltaTime);
+
+            if(playerRigidbody.position == Vector32Vector2(residualBody.position))
+            {
+                break;
+            }
+            
+            yield return new WaitForFixedUpdate();
         }
+    }
+
+    IEnumerator ReturnPlayerMovement()
+    {
+        yield return new WaitUntil(() => Vector2.Distance(playerRigidbody.position, Vector32Vector2(residualBody.position)) <= acceptableJoinDistance );
+
+        playerMainCollider.enabled = true;
+        residualBody.parent = transform.GetChild(0);
+        residualBody.transform.localPosition = Vector3.zero;
+        playerRigidbody.gravityScale = 1;
+        ChangePlayerLayer(true);
+        controller.Air.Disable();
+        controller.Terrain.Enable();
     }
     private Vector2 Vector32Vector2(Vector3 vector)
     {
@@ -234,12 +264,7 @@ public class Player : MonoBehaviour
     {
         playerType = newType;
         bodySpriteRenderer.sprite = faces[(int) newType];
-        gameObject.layer = (int)newType + 8;
-
-        foreach (Transform tm in transform)
-        {
-            tm.gameObject.layer = (int)newType + 8;
-        }
+       
 
         if (isSpirit)
         {
@@ -247,6 +272,17 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void ChangePlayerLayer(bool isNormalLayer)
+    {
+        int newType = isNormalLayer? (int)LayersTypes.PLAYER  : (int)playerType + 8;
+       
+        gameObject.layer = newType;
+
+        foreach (Transform tm in transform)
+        {
+            tm.gameObject.layer = newType;
+        }
+    }
 
 
     #endregion
