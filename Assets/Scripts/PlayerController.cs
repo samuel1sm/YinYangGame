@@ -15,25 +15,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
     ""name"": ""PlayerController"",
     ""maps"": [
         {
-            ""name"": ""Terrain"",
+            ""name"": ""Abilities"",
             ""id"": ""7f09fec7-22e4-47e7-a89a-6ebd0c450d86"",
             ""actions"": [
-                {
-                    ""name"": ""Movement"",
-                    ""type"": ""Button"",
-                    ""id"": ""0e88cd6e-570f-4308-b10e-1423b3412af5"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Jump"",
-                    ""type"": ""Button"",
-                    ""id"": ""b6848e19-f7d6-4b5f-bd26-1e455eac5137"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
                 {
                     ""name"": ""ChangeTypeYin"",
                     ""type"": ""Button"",
@@ -57,53 +41,17 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SpiritForm"",
+                    ""type"": ""Button"",
+                    ""id"": ""80ca343f-33c7-477a-988c-0aed23bcc356"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""e2839610-a229-43a2-8775-782cb9aa5a5e"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""703b9942-b882-4c51-a568-e23feed774da"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""11eccfc5-05f3-4e1f-8d60-3c3371249f0b"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9da63dbd-c24f-4355-b74d-9e8db2feb068"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""4944dab5-7f73-4adc-a8ac-a2bd54203a0a"",
@@ -136,19 +84,175 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""action"": ""AttractionRepution"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40244fe9-56d8-4327-8e47-db94a8ac8c0a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpiritForm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Terrain"",
+            ""id"": ""b07120b8-5841-4547-90a6-7c403ca04103"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Button"",
+                    ""id"": ""5144dc2e-8a4e-4471-ba57-9eeeb4d5d7f6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""e5c88a95-3b90-41ff-9a8b-35e3c6ba3d00"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""16ce5b1f-253d-4adc-a1ce-89e3573b8a8f"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""d32c66c2-8c86-4c36-a794-dedc5638bad1"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""abcf5305-f772-4e40-9051-d3262bf841d2"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59102c20-17d2-4260-b672-3226193f2790"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Air"",
+            ""id"": ""b7a0126d-3db3-4716-844b-92d24cc4121f"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c18dd6b-2c1c-499f-9f06-c94a54122b9b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""8ad56b6a-16c2-419d-9e94-88e7a1a36596"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""764090d6-871d-4d71-8565-e3cac6bc8da7"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""98a5ab8a-0180-4169-a9dd-2b4fbe969637"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""7f3dd9d8-ba7a-4d97-a822-57370f146912"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""ece52cc9-4b9f-4246-abc1-c771e31ff873"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
+        // Abilities
+        m_Abilities = asset.FindActionMap("Abilities", throwIfNotFound: true);
+        m_Abilities_ChangeTypeYin = m_Abilities.FindAction("ChangeTypeYin", throwIfNotFound: true);
+        m_Abilities_ChangeTypeYang = m_Abilities.FindAction("ChangeTypeYang", throwIfNotFound: true);
+        m_Abilities_AttractionRepution = m_Abilities.FindAction("AttractionRepution", throwIfNotFound: true);
+        m_Abilities_SpiritForm = m_Abilities.FindAction("SpiritForm", throwIfNotFound: true);
         // Terrain
         m_Terrain = asset.FindActionMap("Terrain", throwIfNotFound: true);
         m_Terrain_Movement = m_Terrain.FindAction("Movement", throwIfNotFound: true);
         m_Terrain_Jump = m_Terrain.FindAction("Jump", throwIfNotFound: true);
-        m_Terrain_ChangeTypeYin = m_Terrain.FindAction("ChangeTypeYin", throwIfNotFound: true);
-        m_Terrain_ChangeTypeYang = m_Terrain.FindAction("ChangeTypeYang", throwIfNotFound: true);
-        m_Terrain_AttractionRepution = m_Terrain.FindAction("AttractionRepution", throwIfNotFound: true);
+        // Air
+        m_Air = asset.FindActionMap("Air", throwIfNotFound: true);
+        m_Air_Movement = m_Air.FindAction("Movement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -195,23 +299,74 @@ public class @PlayerController : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
+    // Abilities
+    private readonly InputActionMap m_Abilities;
+    private IAbilitiesActions m_AbilitiesActionsCallbackInterface;
+    private readonly InputAction m_Abilities_ChangeTypeYin;
+    private readonly InputAction m_Abilities_ChangeTypeYang;
+    private readonly InputAction m_Abilities_AttractionRepution;
+    private readonly InputAction m_Abilities_SpiritForm;
+    public struct AbilitiesActions
+    {
+        private @PlayerController m_Wrapper;
+        public AbilitiesActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ChangeTypeYin => m_Wrapper.m_Abilities_ChangeTypeYin;
+        public InputAction @ChangeTypeYang => m_Wrapper.m_Abilities_ChangeTypeYang;
+        public InputAction @AttractionRepution => m_Wrapper.m_Abilities_AttractionRepution;
+        public InputAction @SpiritForm => m_Wrapper.m_Abilities_SpiritForm;
+        public InputActionMap Get() { return m_Wrapper.m_Abilities; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(AbilitiesActions set) { return set.Get(); }
+        public void SetCallbacks(IAbilitiesActions instance)
+        {
+            if (m_Wrapper.m_AbilitiesActionsCallbackInterface != null)
+            {
+                @ChangeTypeYin.started -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnChangeTypeYin;
+                @ChangeTypeYin.performed -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnChangeTypeYin;
+                @ChangeTypeYin.canceled -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnChangeTypeYin;
+                @ChangeTypeYang.started -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnChangeTypeYang;
+                @ChangeTypeYang.performed -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnChangeTypeYang;
+                @ChangeTypeYang.canceled -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnChangeTypeYang;
+                @AttractionRepution.started -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnAttractionRepution;
+                @AttractionRepution.performed -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnAttractionRepution;
+                @AttractionRepution.canceled -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnAttractionRepution;
+                @SpiritForm.started -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnSpiritForm;
+                @SpiritForm.performed -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnSpiritForm;
+                @SpiritForm.canceled -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnSpiritForm;
+            }
+            m_Wrapper.m_AbilitiesActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ChangeTypeYin.started += instance.OnChangeTypeYin;
+                @ChangeTypeYin.performed += instance.OnChangeTypeYin;
+                @ChangeTypeYin.canceled += instance.OnChangeTypeYin;
+                @ChangeTypeYang.started += instance.OnChangeTypeYang;
+                @ChangeTypeYang.performed += instance.OnChangeTypeYang;
+                @ChangeTypeYang.canceled += instance.OnChangeTypeYang;
+                @AttractionRepution.started += instance.OnAttractionRepution;
+                @AttractionRepution.performed += instance.OnAttractionRepution;
+                @AttractionRepution.canceled += instance.OnAttractionRepution;
+                @SpiritForm.started += instance.OnSpiritForm;
+                @SpiritForm.performed += instance.OnSpiritForm;
+                @SpiritForm.canceled += instance.OnSpiritForm;
+            }
+        }
+    }
+    public AbilitiesActions @Abilities => new AbilitiesActions(this);
+
     // Terrain
     private readonly InputActionMap m_Terrain;
     private ITerrainActions m_TerrainActionsCallbackInterface;
     private readonly InputAction m_Terrain_Movement;
     private readonly InputAction m_Terrain_Jump;
-    private readonly InputAction m_Terrain_ChangeTypeYin;
-    private readonly InputAction m_Terrain_ChangeTypeYang;
-    private readonly InputAction m_Terrain_AttractionRepution;
     public struct TerrainActions
     {
         private @PlayerController m_Wrapper;
         public TerrainActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Terrain_Movement;
         public InputAction @Jump => m_Wrapper.m_Terrain_Jump;
-        public InputAction @ChangeTypeYin => m_Wrapper.m_Terrain_ChangeTypeYin;
-        public InputAction @ChangeTypeYang => m_Wrapper.m_Terrain_ChangeTypeYang;
-        public InputAction @AttractionRepution => m_Wrapper.m_Terrain_AttractionRepution;
         public InputActionMap Get() { return m_Wrapper.m_Terrain; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -227,15 +382,6 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_TerrainActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_TerrainActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_TerrainActionsCallbackInterface.OnJump;
-                @ChangeTypeYin.started -= m_Wrapper.m_TerrainActionsCallbackInterface.OnChangeTypeYin;
-                @ChangeTypeYin.performed -= m_Wrapper.m_TerrainActionsCallbackInterface.OnChangeTypeYin;
-                @ChangeTypeYin.canceled -= m_Wrapper.m_TerrainActionsCallbackInterface.OnChangeTypeYin;
-                @ChangeTypeYang.started -= m_Wrapper.m_TerrainActionsCallbackInterface.OnChangeTypeYang;
-                @ChangeTypeYang.performed -= m_Wrapper.m_TerrainActionsCallbackInterface.OnChangeTypeYang;
-                @ChangeTypeYang.canceled -= m_Wrapper.m_TerrainActionsCallbackInterface.OnChangeTypeYang;
-                @AttractionRepution.started -= m_Wrapper.m_TerrainActionsCallbackInterface.OnAttractionRepution;
-                @AttractionRepution.performed -= m_Wrapper.m_TerrainActionsCallbackInterface.OnAttractionRepution;
-                @AttractionRepution.canceled -= m_Wrapper.m_TerrainActionsCallbackInterface.OnAttractionRepution;
             }
             m_Wrapper.m_TerrainActionsCallbackInterface = instance;
             if (instance != null)
@@ -246,25 +392,57 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @ChangeTypeYin.started += instance.OnChangeTypeYin;
-                @ChangeTypeYin.performed += instance.OnChangeTypeYin;
-                @ChangeTypeYin.canceled += instance.OnChangeTypeYin;
-                @ChangeTypeYang.started += instance.OnChangeTypeYang;
-                @ChangeTypeYang.performed += instance.OnChangeTypeYang;
-                @ChangeTypeYang.canceled += instance.OnChangeTypeYang;
-                @AttractionRepution.started += instance.OnAttractionRepution;
-                @AttractionRepution.performed += instance.OnAttractionRepution;
-                @AttractionRepution.canceled += instance.OnAttractionRepution;
             }
         }
     }
     public TerrainActions @Terrain => new TerrainActions(this);
+
+    // Air
+    private readonly InputActionMap m_Air;
+    private IAirActions m_AirActionsCallbackInterface;
+    private readonly InputAction m_Air_Movement;
+    public struct AirActions
+    {
+        private @PlayerController m_Wrapper;
+        public AirActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Air_Movement;
+        public InputActionMap Get() { return m_Wrapper.m_Air; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(AirActions set) { return set.Get(); }
+        public void SetCallbacks(IAirActions instance)
+        {
+            if (m_Wrapper.m_AirActionsCallbackInterface != null)
+            {
+                @Movement.started -= m_Wrapper.m_AirActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_AirActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_AirActionsCallbackInterface.OnMovement;
+            }
+            m_Wrapper.m_AirActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+            }
+        }
+    }
+    public AirActions @Air => new AirActions(this);
+    public interface IAbilitiesActions
+    {
+        void OnChangeTypeYin(InputAction.CallbackContext context);
+        void OnChangeTypeYang(InputAction.CallbackContext context);
+        void OnAttractionRepution(InputAction.CallbackContext context);
+        void OnSpiritForm(InputAction.CallbackContext context);
+    }
     public interface ITerrainActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnChangeTypeYin(InputAction.CallbackContext context);
-        void OnChangeTypeYang(InputAction.CallbackContext context);
-        void OnAttractionRepution(InputAction.CallbackContext context);
+    }
+    public interface IAirActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
     }
 }

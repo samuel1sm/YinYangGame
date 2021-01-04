@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     private SpriteRenderer bodySpriteRenderer;
     private Collider2D playerMainCollider;
     private int jumpQtd ;
+    private bool isSpirit;
+    private Transform residualBody;
 
     [Header("Player Configs")]
     [SerializeField] private PlayerTypes playerType;
@@ -31,7 +33,8 @@ public class Player : MonoBehaviour
     #region UnityMethods
     private void Awake()
     {
-
+        residualBody = transform.GetChild(0).GetChild(0);
+        isSpirit = false;
         playerMainCollider = GetComponent<Collider2D>();
         bodySpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         controller = new PlayerController();
@@ -44,32 +47,47 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         controller.Terrain.Enable();
+        controller.Abilities.Enable();
+
     }
 
     private void OnDisable()
     {
         controller.Terrain.Disable();
+        controller.Abilities.Disable();
+
     }
 
     void Start()
     {
         controller.Terrain.Jump.performed += _ => Jump();
-        controller.Terrain.ChangeTypeYin.performed += _ => ChangePlayerType(PlayerTypes.YIN);
-        controller.Terrain.ChangeTypeYang.performed += _ => ChangePlayerType(PlayerTypes.YANG);
-        controller.Terrain.AttractionRepution.performed += _ => ActivateAttractRepution();
-        controller.Terrain.AttractionRepution.canceled += _ => DeactivateAttractRepution();
+        controller.Abilities.ChangeTypeYin.performed += _ => ChangePlayerType(PlayerTypes.YIN);
+        controller.Abilities.ChangeTypeYang.performed += _ => ChangePlayerType(PlayerTypes.YANG);
+        controller.Abilities.AttractionRepution.performed += _ => ActivateAttractRepution();
+        controller.Abilities.AttractionRepution.canceled += _ => DeactivateAttractRepution();
+        controller.Abilities.SpiritForm.performed += _ => ChangeSpiritForm();
 
     }
 
     private void FixedUpdate()
     {
-        float movement = controller.Terrain.Movement.ReadValue<float>();
-        transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * movementSpeed;
+        Vector3 movement;
+        if (!isSpirit)
+        {
+            float movementValue = controller.Terrain.Movement.ReadValue<float>();
+            movement = new Vector3(movementValue, 0, 0);
+        }
+        else
+        {
+           movement = controller.Air.Movement.ReadValue<Vector2>();
+        }
+        transform.position += movement * Time.deltaTime * movementSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
 
@@ -83,14 +101,45 @@ public class Player : MonoBehaviour
 
     #region MyMethods
 
+    private void ChangeSpiritForm()
+    {
+        if(playerType == PlayerTypes.YANG)
+        {
+            ChangeForm();
+        }
+
+    }
+
+    private void ChangeForm()
+    {
+        isSpirit = !isSpirit;
+        if (isSpirit)
+        {
+            playerRigidbody.velocity = Vector2.zero;
+            playerRigidbody.gravityScale = 0;
+            controller.Terrain.Disable();
+            controller.Air.Enable();
+            residualBody.parent = null;
+
+        }
+        else
+        {
+            StartCoroutine(MoveToObject());
+            //residualBody.parent = transform.GetChild(0);
+            //playerRigidbody.gravityScale = 1;
+            //controller.Air.Disable();
+            //controller.Terrain.Enable();
+        }
+    }
+
     private void ActivateAttractRepution()
     {
-        StartCoroutine("MovebleObjects");
+        StartCoroutine(MovebleObjects());
     }
 
     private void DeactivateAttractRepution()
     {
-        StopCoroutine("MovebleObjects");
+        StopCoroutine(MovebleObjects());
     }
 
     IEnumerator MovebleObjects()
@@ -131,9 +180,17 @@ public class Player : MonoBehaviour
         
     }
 
+    IEnumerator MoveToObject()
+    {
+        while (true)
+        {
+            playerRigidbody.MovePosition(residualBody.position);
+            Vector2 aux = residualBody.position;
+            yield return new WaitUntil(() =>  playerRigidbody.position == aux);
+        }
+    }
     private Vector2 Vector32Vector2(Vector3 vector)
     {
-        Vector2 aux = vector;
         return vector;
     }
 
@@ -182,6 +239,11 @@ public class Player : MonoBehaviour
         foreach (Transform tm in transform)
         {
             tm.gameObject.layer = (int)newType + 8;
+        }
+
+        if (isSpirit)
+        {
+            ChangeForm();
         }
     }
 
