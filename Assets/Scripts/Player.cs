@@ -136,10 +136,6 @@ public class Player : MonoBehaviour
             StartCoroutine(Move2Object());
             StartCoroutine(ReturnPlayerMovement());
 
-            //residualBody.parent = transform.GetChild(0);
-            //playerRigidbody.gravityScale = 1;
-            //controller.Air.Disable();
-            //controller.Terrain.Enable();
         }
     }
 
