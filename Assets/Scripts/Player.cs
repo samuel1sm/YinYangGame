@@ -10,14 +10,16 @@ public class Player : MonoBehaviour
     [Header("Word Data")]
     [SerializeField] private LayerMask plataformLayerMask;
     [SerializeField] private LayerMask movebleLayerMask;
+    [SerializeField] private LayerMask waterLayerMask;
 
     [Header("Player Data")]
-    private SpriteRenderer bodySpriteRenderer;
+    private SpriteRenderer playerSpriteRenderer;
     private Collider2D playerMainCollider;
-    private int jumpQtd ;
+    [SerializeField] private int jumpQtd ;
     private bool isSpirit;
     private Transform residualBody;
-    bool returnMovementHasEnded;
+    private Animator animator;
+    private bool drawned;
 
     [Header("Player Configs")]
     [SerializeField] private PlayerTypes playerType;
@@ -30,6 +32,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float raycastAreaMaxRadius = .5f;
     [SerializeField] private float returnForce = 0.5f;
     [SerializeField] private float acceptableJoinDistance = 0.5f;
+    [SerializeField] private float waterVerificationDistance = 0.5f;
+
     //[SerializeField] private float reaturnValue = 0.5f;
 
 
@@ -37,11 +41,12 @@ public class Player : MonoBehaviour
     #region UnityMethods
     private void Awake()
     {
-        returnMovementHasEnded = true;
-        residualBody = transform.GetChild(0).GetChild(0);
+        drawned = false;
+        residualBody = transform.GetChild(0);
         isSpirit = false;
         playerMainCollider = GetComponent<Collider2D>();
-        bodySpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         controller = new PlayerController();
         playerRigidbody = GetComponent<Rigidbody2D>();
         PlayerType = PlayerTypes.YIN;
@@ -81,11 +86,16 @@ public class Player : MonoBehaviour
         {
             float movementValue = controller.Terrain.Movement.ReadValue<float>();
             movement = new Vector3(movementValue, 0, 0);
+
         }
         else
         {
            movement = controller.Air.Movement.ReadValue<Vector2>();
+           UpdateSpiritMovement(movement);
         }
+
+        isMovingSwitch(movement);
+
         transform.position += movement * Time.deltaTime * movementSpeed;
     }
 
@@ -96,7 +106,25 @@ public class Player : MonoBehaviour
         {
             playerRigidbody.velocity = Vector3.zero;
         }
+        else
+        {
+        }
+
+       //bool result =  VerifyWater(Vector2.down, waterVerificationDistance);
+       // print(result);
     }
+
+    private void LateUpdate()
+    {
+        
+        if(playerRigidbody.velocity.y < 0 && !isSpirit)
+        {
+
+            IsGrounded();
+        }
+
+    }
+
 
 
     private void OnDrawGizmos()
@@ -105,9 +133,31 @@ public class Player : MonoBehaviour
             Gizmos.DrawWireSphere(playerMainCollider.bounds.center, raycastAreaMaxRadius);
     }
 
+
+
     #endregion
 
     #region MyMethods
+    private bool VerifyWater(Vector2 direction, float verificationDistance)
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(playerMainCollider.bounds.center, playerMainCollider.bounds.size, 0f, direction, verificationDistance, waterLayerMask);
+        Color rayColor;
+        if (raycastHit.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+
+        Debug.DrawRay(playerMainCollider.bounds.center + new Vector3(playerMainCollider.bounds.extents.x, 0), Vector2.down * (playerMainCollider.bounds.extents.y + verificationDistance), rayColor);
+        Debug.DrawRay(playerMainCollider.bounds.center - new Vector3(playerMainCollider.bounds.extents.x, 0), Vector2.down * (playerMainCollider.bounds.extents.y + verificationDistance), rayColor);
+        Debug.DrawRay(playerMainCollider.bounds.center - new Vector3(playerMainCollider.bounds.extents.x, playerMainCollider.bounds.extents.y + verificationDistance), Vector2.right * playerMainCollider.bounds.extents.x * 2, rayColor);
+
+        return raycastHit.collider != null;
+
+    }
 
     private void ChangeSpiritForm()
     {
@@ -118,11 +168,14 @@ public class Player : MonoBehaviour
 
     }
 
+
     private void ChangeForm()
     {
         isSpirit = !isSpirit;
         if (isSpirit)
         {
+
+            ChangeSpiritAnimation();
             ChangePlayerLayer(false);
             controller.Terrain.Disable();
             controller.Air.Enable();
@@ -206,9 +259,10 @@ public class Player : MonoBehaviour
     IEnumerator ReturnPlayerMovement()
     {
         yield return new WaitUntil(() => Vector2.Distance(playerRigidbody.position, Vector32Vector2(residualBody.position)) <= acceptableJoinDistance );
+        ChangeSpiritAnimation();
 
         playerMainCollider.enabled = true;
-        residualBody.parent = transform.GetChild(0);
+        residualBody.parent = transform;
         residualBody.transform.localPosition = Vector3.zero;
         playerRigidbody.gravityScale = 1;
         ChangePlayerLayer(true);
@@ -232,35 +286,43 @@ public class Player : MonoBehaviour
         {
             rayColor = Color.red;
         }
-            
+
+        bool result = raycastHit.collider != null;
+
+        if (result)
+        {
+
+            jumpQtd = maxJumpQtd;
+            isJumping(false);
+
+        }
         Debug.DrawRay(playerMainCollider.bounds.center + new Vector3(playerMainCollider.bounds.extents.x, 0), Vector2.down * (playerMainCollider.bounds.extents.y + extraHeightText),rayColor);
         Debug.DrawRay(playerMainCollider.bounds.center - new Vector3(playerMainCollider.bounds.extents.x, 0), Vector2.down * (playerMainCollider.bounds.extents.y + extraHeightText), rayColor);
         Debug.DrawRay(playerMainCollider.bounds.center - new Vector3(playerMainCollider.bounds.extents.x, playerMainCollider.bounds.extents.y + extraHeightText), Vector2.right * playerMainCollider.bounds.extents.x * 2, rayColor);
 
-        return raycastHit.collider != null;
+        return result;
     }
 
     
     private void Jump()
     {
-        if (IsGrounded())
-        {
-            jumpQtd = maxJumpQtd;
-        }
-
         if (jumpQtd > 0)
         {
+            jumpQtd--;
+
+            isJumping(true);
             playerRigidbody.velocity = Vector3.zero;
             playerRigidbody.AddForce(transform.up * jumpSpeed);
-            jumpQtd--;
         }
+        print("asdasda " + jumpQtd);
+
     }
 
     public void ChangePlayerType(PlayerTypes newType)
     {
         playerType = newType;
-        bodySpriteRenderer.sprite = faces[(int) newType];
-       
+        playerSpriteRenderer.sprite = faces[(int) newType];
+        SwitchColor();
 
         if (isSpirit)
         {
@@ -288,4 +350,65 @@ public class Player : MonoBehaviour
     public PlayerTypes PlayerType { get => playerType; set => playerType = value; }
 
     #endregion
+
+    #region AnimationHandlers
+    private void SwitchColor()
+    {
+        animator.SetBool("isYin", playerType == PlayerTypes.YIN ? true : false);
+        animator.SetTrigger("hasChangedColor");
+    }
+
+    private void isJumping(bool isJuping)
+    {
+        animator.SetBool("isJumping", isJuping);
+        
+    }
+
+    private void ChangeSpiritAnimation()
+    {
+        if (isSpirit)
+        {
+
+            animator.SetTrigger("isSpirit");
+        }
+        else
+        {
+            animator.SetTrigger("isNotSpirit");
+
+        }
+
+    }
+
+    private void UpdateSpiritMovement(Vector3 verticalMovement)
+    {
+        animator.SetFloat("SpiritMovement", verticalMovement.y);
+        animator.SetFloat("SpiritSpeed", Mathf.Abs(verticalMovement.y));
+
+
+    }
+
+
+    private void isMovingSwitch(Vector3 movementValue)
+    {
+        if (!isSpirit)
+        {
+ 
+            animator.SetBool("isMoving", movementValue != Vector3.zero);
+
+        }
+        else
+        {
+
+        }
+
+        if(movementValue.x != 0)
+        {
+
+            playerSpriteRenderer.flipX = movementValue.x < 0;
+        }
+
+    }
+
+    #endregion
+
 }
