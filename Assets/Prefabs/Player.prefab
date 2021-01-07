@@ -67,8 +67,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -112524863
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -9119037557031223073, guid: f15653411f7049a43a88f0f40e34aa76,
     type: 3}
@@ -127,11 +127,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.428
+  m_FalloffIntensity: 0.442
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000e921a72e457e0baf
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -212,7 +212,9 @@ MonoBehaviour:
   waterLayerMask:
     serializedVersion: 2
     m_Bits: 8192
-  jumpQtd: 0
+  interactablesLayerMask:
+    serializedVersion: 2
+    m_Bits: 16384
   playerType: 1
   faces:
   - {fileID: 3106341853739790030, guid: cfa9dbfe20992f547945dfed599aea65, type: 3}
@@ -226,6 +228,7 @@ MonoBehaviour:
   returnForce: 2
   acceptableJoinDistance: 0.01
   waterVerificationDistance: 0.13
+  extraDistance: 0.4
 --- !u!50 &3462391070607555217
 Rigidbody2D:
   serializedVersion: 4
@@ -281,7 +284,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b2c710b2356f8b540b5a2af21a9b564a, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -299,9 +302,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: -112524863
+  m_SortingLayer: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 4457835537561387818, guid: ead417fb8a5da3c4ab26c80124e793b5,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

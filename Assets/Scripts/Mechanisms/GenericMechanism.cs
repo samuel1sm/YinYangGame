@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class GenericMechanism : MonoBehaviour
 {
     // Start is called before the first frame update
-    public abstract void Activate();
+    [SerializeField] protected bool needKey;
+
+    public abstract void Activate(bool canOpen);
  
 }

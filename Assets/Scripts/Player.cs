@@ -109,6 +109,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(Time.frameCount / Time.time);
         //InteractWithItem();
         if (isSpirit)
         {
@@ -163,7 +164,7 @@ public class Player : MonoBehaviour
 
        if(raycastHit.collider != null)
         {
-            raycastHit.transform.gameObject.SendMessage("Activate", SendMessageOptions.DontRequireReceiver);
+            raycastHit.transform.gameObject.SendMessage("Activate",false,SendMessageOptions.DontRequireReceiver);
         }
     }
     private bool VerifyWater(Vector2 direction, float verificationDistance)
