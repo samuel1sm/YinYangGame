@@ -14,12 +14,12 @@ public class Player : MonoBehaviour
 
     [Header("Player Data")]
     private SpriteRenderer playerSpriteRenderer;
+    private SpriteRenderer spiritSpriteRenderer;
     private Collider2D playerMainCollider;
     [SerializeField] private int jumpQtd ;
     private bool isSpirit;
     private Transform residualBody;
     private Animator animator;
-    private bool drawned;
 
     [Header("Player Configs")]
     [SerializeField] private PlayerTypes playerType;
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     #region UnityMethods
     private void Awake()
     {
-        drawned = false;
+        spiritSpriteRenderer = GetComponentsInChildren<SpriteRenderer>()[1];
         residualBody = transform.GetChild(0);
         isSpirit = false;
         playerMainCollider = GetComponent<Collider2D>();
@@ -174,7 +174,7 @@ public class Player : MonoBehaviour
         isSpirit = !isSpirit;
         if (isSpirit)
         {
-
+            spiritSpriteRenderer.enabled = true;
             ChangeSpiritAnimation();
             ChangePlayerLayer(false);
             controller.Terrain.Disable();
@@ -261,6 +261,7 @@ public class Player : MonoBehaviour
         yield return new WaitUntil(() => Vector2.Distance(playerRigidbody.position, Vector32Vector2(residualBody.position)) <= acceptableJoinDistance );
         ChangeSpiritAnimation();
 
+        spiritSpriteRenderer.enabled = false;
         playerMainCollider.enabled = true;
         residualBody.parent = transform;
         residualBody.transform.localPosition = Vector3.zero;
