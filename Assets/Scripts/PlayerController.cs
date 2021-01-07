@@ -49,6 +49,14 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""10100f95-28f0-45a7-9820-acdc21a37ee7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -93,6 +101,17 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SpiritForm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56a98be0-6d45-4c63-a9d5-ea6f5f13011a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -246,6 +265,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         m_Abilities_ChangeTypeYang = m_Abilities.FindAction("ChangeTypeYang", throwIfNotFound: true);
         m_Abilities_AttractionRepution = m_Abilities.FindAction("AttractionRepution", throwIfNotFound: true);
         m_Abilities_SpiritForm = m_Abilities.FindAction("SpiritForm", throwIfNotFound: true);
+        m_Abilities_Interact = m_Abilities.FindAction("Interact", throwIfNotFound: true);
         // Terrain
         m_Terrain = asset.FindActionMap("Terrain", throwIfNotFound: true);
         m_Terrain_Movement = m_Terrain.FindAction("Movement", throwIfNotFound: true);
@@ -306,6 +326,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
     private readonly InputAction m_Abilities_ChangeTypeYang;
     private readonly InputAction m_Abilities_AttractionRepution;
     private readonly InputAction m_Abilities_SpiritForm;
+    private readonly InputAction m_Abilities_Interact;
     public struct AbilitiesActions
     {
         private @PlayerController m_Wrapper;
@@ -314,6 +335,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         public InputAction @ChangeTypeYang => m_Wrapper.m_Abilities_ChangeTypeYang;
         public InputAction @AttractionRepution => m_Wrapper.m_Abilities_AttractionRepution;
         public InputAction @SpiritForm => m_Wrapper.m_Abilities_SpiritForm;
+        public InputAction @Interact => m_Wrapper.m_Abilities_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Abilities; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -335,6 +357,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @SpiritForm.started -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnSpiritForm;
                 @SpiritForm.performed -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnSpiritForm;
                 @SpiritForm.canceled -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnSpiritForm;
+                @Interact.started -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_AbilitiesActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_AbilitiesActionsCallbackInterface = instance;
             if (instance != null)
@@ -351,6 +376,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @SpiritForm.started += instance.OnSpiritForm;
                 @SpiritForm.performed += instance.OnSpiritForm;
                 @SpiritForm.canceled += instance.OnSpiritForm;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -435,6 +463,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         void OnChangeTypeYang(InputAction.CallbackContext context);
         void OnAttractionRepution(InputAction.CallbackContext context);
         void OnSpiritForm(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface ITerrainActions
     {

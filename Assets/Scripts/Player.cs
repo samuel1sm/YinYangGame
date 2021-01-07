@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,15 +12,17 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask plataformLayerMask;
     [SerializeField] private LayerMask movebleLayerMask;
     [SerializeField] private LayerMask waterLayerMask;
+    [SerializeField] private LayerMask interactablesLayerMask;
 
     [Header("Player Data")]
     private SpriteRenderer playerSpriteRenderer;
     private SpriteRenderer spiritSpriteRenderer;
     private Collider2D playerMainCollider;
-    [SerializeField] private int jumpQtd ;
+    private int jumpQtd ;
     private bool isSpirit;
     private Transform residualBody;
     private Animator animator;
+    private Vector3 testSize;
 
     [Header("Player Configs")]
     [SerializeField] private PlayerTypes playerType;
@@ -33,6 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float returnForce = 0.5f;
     [SerializeField] private float acceptableJoinDistance = 0.5f;
     [SerializeField] private float waterVerificationDistance = 0.5f;
+    [SerializeField] private float extraDistance = 2;
 
     //[SerializeField] private float reaturnValue = 0.5f;
 
@@ -73,11 +77,14 @@ public class Player : MonoBehaviour
         controller.Terrain.Jump.performed += _ => Jump();
         controller.Abilities.ChangeTypeYin.performed += _ => ChangePlayerType(PlayerTypes.YIN);
         controller.Abilities.ChangeTypeYang.performed += _ => ChangePlayerType(PlayerTypes.YANG);
+        controller.Abilities.Interact.performed += _ => InteractWithItem();
         controller.Abilities.AttractionRepution.performed += _ => ActivateAttractRepution();
         controller.Abilities.AttractionRepution.canceled += _ => DeactivateAttractRepution();
         controller.Abilities.SpiritForm.performed += _ => ChangeSpiritForm();
 
     }
+
+    
 
     private void FixedUpdate()
     {
@@ -102,6 +109,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //InteractWithItem();
         if (isSpirit)
         {
             playerRigidbody.velocity = Vector3.zero;
@@ -130,7 +138,15 @@ public class Player : MonoBehaviour
     private void OnDrawGizmos()
     {
         if(playerMainCollider != null)
+        {
             Gizmos.DrawWireSphere(playerMainCollider.bounds.center, raycastAreaMaxRadius);
+        }
+        if(testSize != Vector3.zero)
+        {
+            Gizmos.DrawWireCube(playerMainCollider.bounds.center, testSize);
+
+        }
+
     }
 
 
@@ -138,6 +154,18 @@ public class Player : MonoBehaviour
     #endregion
 
     #region MyMethods
+    private void InteractWithItem()
+    {
+        testSize = playerMainCollider.bounds.size + new Vector3(playerMainCollider.bounds.extents.x + extraDistance, 0);
+
+        RaycastHit2D raycastHit = Physics2D.BoxCast(playerMainCollider.bounds.center, playerMainCollider.bounds.size + new Vector3(playerMainCollider.bounds.extents.x + extraDistance, 0)
+       , 0, Vector2.left, 0, interactablesLayerMask);
+
+       if(raycastHit.collider != null)
+        {
+            raycastHit.transform.gameObject.SendMessage("Activate", SendMessageOptions.DontRequireReceiver);
+        }
+    }
     private bool VerifyWater(Vector2 direction, float verificationDistance)
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(playerMainCollider.bounds.center, playerMainCollider.bounds.size, 0f, direction, verificationDistance, waterLayerMask);
