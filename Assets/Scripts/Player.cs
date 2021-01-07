@@ -320,6 +320,12 @@ public class Player : MonoBehaviour
 
     public void ChangePlayerType(PlayerTypes newType)
     {
+        if(playerType == newType)
+        {
+
+            return;
+        }
+
         playerType = newType;
         playerSpriteRenderer.sprite = faces[(int) newType];
         SwitchColor();
