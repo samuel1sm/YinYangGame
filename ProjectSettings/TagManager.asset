@@ -45,11 +45,17 @@ TagManager:
   - name: BackgroundAssets
     uniqueID: 782705129
     locked: 0
+  - name: Activators
+    uniqueID: 2936766021
+    locked: 0
   - name: PlayerLayer
     uniqueID: 4182442433
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: SemiForegotund
+    uniqueID: 3830490239
     locked: 0
   - name: Foreground
     uniqueID: 886809685
