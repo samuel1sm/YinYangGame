@@ -64,6 +64,15 @@ public class PauseMenu : MonoBehaviour
         GameManager.gameManager.ChangeScene(0);
     }
 
+    public void ResetLevel()
+    {
+        GameIsPaused = false;
+        GameManager.gameManager.ResetScene();
+        Resume();
+
+    }
+
+
     public void QuitGame()
     {
         GameManager.gameManager.QuitGame();

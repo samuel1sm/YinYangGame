@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ResetScene()
+    {
+        ChangeScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void ChangeScene(int sceneNumber)
     {
         SceneManager.LoadScene(sceneNumber);
