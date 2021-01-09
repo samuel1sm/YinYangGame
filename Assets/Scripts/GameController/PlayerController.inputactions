@@ -242,6 +242,33 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "MenuController",
+            "id": "b40207a5-7930-4f67-a292-643693021105",
+            "actions": [
+                {
+                    "name": "OpenMenu",
+                    "type": "Button",
+                    "id": "ca15796a-f00e-469d-9d7c-619560bf83e7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "54200181-14ed-4598-bacb-f8acc5af2e21",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

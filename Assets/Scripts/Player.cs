@@ -47,14 +47,14 @@ public class Player : MonoBehaviour
     #region UnityMethods
     private void Awake()
     {
+        controller = new PlayerController();
         isReturning = false;
-        auraAnimator = GetComponentsInChildren<Animator>()[2];
+        auraAnimator = GetComponentsInChildren<Animator>()[1];
         residualBody = transform.GetComponentInChildren<ResidualBody>();
         isSpirit = false;
         playerMainCollider = GetComponent<Collider2D>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        controller = new PlayerController();
         playerRigidbody = GetComponent<Rigidbody2D>();
         PlayerType = PlayerTypes.YIN;
         jumpQtd = maxJumpQtd;
@@ -122,6 +122,8 @@ public class Player : MonoBehaviour
 
             IsGrounded();
         }
+
+        ActivateController(!PauseMenu.GameIsPaused);
 
     }
 
@@ -364,6 +366,25 @@ public class Player : MonoBehaviour
             playerRigidbody.velocity = Vector3.zero;
             playerRigidbody.AddForce(transform.up * jumpSpeed);
         }
+
+    }
+
+    private void ActivateController(bool activate)
+    {
+        if (activate)
+        {
+            controller.Terrain.Enable();
+            controller.Air.Enable();
+            controller.Abilities.Enable();
+        }
+        else
+        {
+            controller.Terrain.Disable();
+            controller.Air.Disable();
+            controller.Abilities.Disable();
+
+        }
+
 
     }
 

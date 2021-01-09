@@ -36,6 +36,8 @@ public class MovebleItems : MonoBehaviour
 
     }
 
+   
+
     public bool GetIsHeavy()
     {
         return boxRigidbody.bodyType == RigidbodyType2D.Static;

@@ -2,18 +2,19 @@
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
-    private static GameManager gameManager;
+    public static GameManager gameManager;
     [SerializeField] private int auxScenesQtd = 2;
     private void Awake()
     {
         if (gameManager == null)
         {
+
             gameManager = this;
             DontDestroyOnLoad(gameManager);
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 

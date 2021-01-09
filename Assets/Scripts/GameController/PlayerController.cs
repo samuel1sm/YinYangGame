@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/PlayerController.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/GameController/PlayerController.inputactions'
 
 using System;
 using System.Collections;
@@ -255,6 +255,33 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""MenuController"",
+            ""id"": ""b40207a5-7930-4f67-a292-643693021105"",
+            ""actions"": [
+                {
+                    ""name"": ""OpenMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca15796a-f00e-469d-9d7c-619560bf83e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""54200181-14ed-4598-bacb-f8acc5af2e21"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -273,6 +300,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
         // Air
         m_Air = asset.FindActionMap("Air", throwIfNotFound: true);
         m_Air_Movement = m_Air.FindAction("Movement", throwIfNotFound: true);
+        // MenuController
+        m_MenuController = asset.FindActionMap("MenuController", throwIfNotFound: true);
+        m_MenuController_OpenMenu = m_MenuController.FindAction("OpenMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -457,6 +487,39 @@ public class @PlayerController : IInputActionCollection, IDisposable
         }
     }
     public AirActions @Air => new AirActions(this);
+
+    // MenuController
+    private readonly InputActionMap m_MenuController;
+    private IMenuControllerActions m_MenuControllerActionsCallbackInterface;
+    private readonly InputAction m_MenuController_OpenMenu;
+    public struct MenuControllerActions
+    {
+        private @PlayerController m_Wrapper;
+        public MenuControllerActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @OpenMenu => m_Wrapper.m_MenuController_OpenMenu;
+        public InputActionMap Get() { return m_Wrapper.m_MenuController; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuControllerActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuControllerActions instance)
+        {
+            if (m_Wrapper.m_MenuControllerActionsCallbackInterface != null)
+            {
+                @OpenMenu.started -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnOpenMenu;
+                @OpenMenu.performed -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnOpenMenu;
+                @OpenMenu.canceled -= m_Wrapper.m_MenuControllerActionsCallbackInterface.OnOpenMenu;
+            }
+            m_Wrapper.m_MenuControllerActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @OpenMenu.started += instance.OnOpenMenu;
+                @OpenMenu.performed += instance.OnOpenMenu;
+                @OpenMenu.canceled += instance.OnOpenMenu;
+            }
+        }
+    }
+    public MenuControllerActions @MenuController => new MenuControllerActions(this);
     public interface IAbilitiesActions
     {
         void OnChangeTypeYin(InputAction.CallbackContext context);
@@ -473,5 +536,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
     public interface IAirActions
     {
         void OnMovement(InputAction.CallbackContext context);
+    }
+    public interface IMenuControllerActions
+    {
+        void OnOpenMenu(InputAction.CallbackContext context);
     }
 }
