@@ -8,14 +8,12 @@ public class Door : GenericMechanism
 
     private Animator animator;
 
-    [SerializeField] private bool isOpen = true;
 
-    [SerializeField] private float extraDistance = 0;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        animator.SetBool("isOpen", isOpen);
+        animator.SetBool("isActivated", isActivated);
         //animator.SetBool("isOpen", isOpen);
     }
 
@@ -23,6 +21,7 @@ public class Door : GenericMechanism
     {
         if (canOpen || !needKey)
         {
+            isActivated = !isActivated;
             animator.SetTrigger("OpenClose");
 
         } 
@@ -36,10 +35,8 @@ public class Door : GenericMechanism
 
     }
 
-
-
-
-
-
-
+    public override bool GetStatus()
+    {
+        return isActivated;
+    }
 }

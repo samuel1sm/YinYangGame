@@ -1151,7 +1151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelButton: {fileID: 6837673312428391234, guid: 1bdc6fbb6a18a9d47a490a7fe3324b6e,
     type: 3}
-  xOffset: 4
+  xOffset: 127
   yOffset: 0
 --- !u!114 &1160896642
 MonoBehaviour:

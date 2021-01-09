@@ -9,24 +9,26 @@ public class Player : MonoBehaviour
     private Rigidbody2D playerRigidbody;
 
     [Header("Word Data")]
+    [SerializeField] private LayerMask interactablesLayerMask;
     [SerializeField] private LayerMask plataformLayerMask;
     [SerializeField] private LayerMask movebleLayerMask;
     [SerializeField] private LayerMask waterLayerMask;
-    [SerializeField] private LayerMask interactablesLayerMask;
 
     [Header("Player Data")]
     private SpriteRenderer playerSpriteRenderer;
-    private SpriteRenderer spiritSpriteRenderer;
     private Collider2D playerMainCollider;
-    private int jumpQtd ;
-    private bool isSpirit;
-    private Transform residualBody;
+    private ResidualBody residualBody;
+    private Animator auraAnimator;
     private Animator animator;
+
     private Vector3 testSize;
+    private bool isSpirit;
+    private bool isGravity;
+    private bool isReturning;
+    private int jumpQtd ;
 
     [Header("Player Configs")]
     [SerializeField] private PlayerTypes playerType;
-    [SerializeField] Sprite[] faces;
     [SerializeField] private float movementSpeed = 100;
     [SerializeField] private float jumpSpeed = 100;
     [SerializeField] private int maxJumpQtd = 1;
@@ -45,8 +47,9 @@ public class Player : MonoBehaviour
     #region UnityMethods
     private void Awake()
     {
-        spiritSpriteRenderer = GetComponentsInChildren<SpriteRenderer>()[1];
-        residualBody = transform.GetChild(0);
+        isReturning = false;
+        auraAnimator = GetComponentsInChildren<Animator>()[2];
+        residualBody = transform.GetComponentInChildren<ResidualBody>();
         isSpirit = false;
         playerMainCollider = GetComponent<Collider2D>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -81,10 +84,11 @@ public class Player : MonoBehaviour
         controller.Abilities.AttractionRepution.performed += _ => ActivateAttractRepution();
         controller.Abilities.AttractionRepution.canceled += _ => DeactivateAttractRepution();
         controller.Abilities.SpiritForm.performed += _ => ChangeSpiritForm();
+   
 
     }
 
-    
+
 
     private void FixedUpdate()
     {
@@ -109,7 +113,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(Time.frameCount / Time.time);
+
+
         //InteractWithItem();
         if (isSpirit)
         {
@@ -119,8 +124,6 @@ public class Player : MonoBehaviour
         {
         }
 
-       //bool result =  VerifyWater(Vector2.down, waterVerificationDistance);
-       // print(result);
     }
 
     private void LateUpdate()
@@ -167,56 +170,66 @@ public class Player : MonoBehaviour
             raycastHit.transform.gameObject.SendMessage("Activate",false,SendMessageOptions.DontRequireReceiver);
         }
     }
-    private bool VerifyWater(Vector2 direction, float verificationDistance)
-    {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(playerMainCollider.bounds.center, playerMainCollider.bounds.size, 0f, direction, verificationDistance, waterLayerMask);
-        Color rayColor;
-        if (raycastHit.collider != null)
-        {
-            rayColor = Color.green;
-        }
-        else
-        {
-            rayColor = Color.red;
-        }
-
-        Debug.DrawRay(playerMainCollider.bounds.center + new Vector3(playerMainCollider.bounds.extents.x, 0), Vector2.down * (playerMainCollider.bounds.extents.y + verificationDistance), rayColor);
-        Debug.DrawRay(playerMainCollider.bounds.center - new Vector3(playerMainCollider.bounds.extents.x, 0), Vector2.down * (playerMainCollider.bounds.extents.y + verificationDistance), rayColor);
-        Debug.DrawRay(playerMainCollider.bounds.center - new Vector3(playerMainCollider.bounds.extents.x, playerMainCollider.bounds.extents.y + verificationDistance), Vector2.right * playerMainCollider.bounds.extents.x * 2, rayColor);
-
-        return raycastHit.collider != null;
-
-    }
 
     private void ChangeSpiritForm()
     {
-        if(playerType == PlayerTypes.YANG)
+        if (!isReturning)
         {
-            ChangeForm();
+            isReturning = true;
+            if (playerType == PlayerTypes.YANG)
+            {
+                Change2SpiritForm();
+            }
+            else
+            {
+                Change2GravityForm();
+            }
         }
 
     }
 
+    private void Change2GravityForm()
+    {
 
-    private void ChangeForm()
+        isGravity = !isGravity;
+        if (isGravity)
+        {
+            ChangePlayerLayer(false);
+            residualBody.ActivateAura(true);
+            resetResidualBody();
+
+            isReturning = false;
+        }
+        else
+        {
+            StartCoroutine(ResetResidualBody(false));
+            StartCoroutine(ReturnPlayerMovement(false));
+
+        }
+    }
+
+    private void Change2SpiritForm()
     {
         isSpirit = !isSpirit;
         if (isSpirit)
         {
-            spiritSpriteRenderer.enabled = true;
+            resetResidualBody();
+
             ChangeSpiritAnimation();
             ChangePlayerLayer(false);
             controller.Terrain.Disable();
             controller.Air.Enable();
             playerRigidbody.velocity = Vector2.zero;
             playerRigidbody.gravityScale = 0;
-            residualBody.parent = null;
+            isReturning = false;
+
+
 
         }
         else
         {
-            StartCoroutine(Move2Object());
-            StartCoroutine(ReturnPlayerMovement());
+            StartCoroutine(ResetResidualBody(true));
+            StartCoroutine(ReturnPlayerMovement(true));
 
         }
     }
@@ -224,11 +237,14 @@ public class Player : MonoBehaviour
     private void ActivateAttractRepution()
     {
         StartCoroutine("MovebleObjects");
+        DeactivateActivateAura(true);
     }
 
     private void DeactivateAttractRepution()
     {
         StopCoroutine("MovebleObjects");
+        DeactivateActivateAura(false);
+
     }
 
     IEnumerator MovebleObjects()
@@ -269,14 +285,21 @@ public class Player : MonoBehaviour
         
     }
 
-    IEnumerator Move2Object()
+
+    IEnumerator ResetResidualBody(bool wasSpirit)
     {
-        playerMainCollider.enabled= false;
         while (true)
         {
-            transform.position = Vector3.Lerp(transform.position, residualBody.position, returnForce * Time.deltaTime);
+            if (wasSpirit)
+            {
+                transform.position = Vector3.Lerp(transform.position, residualBody.GetTransform().position, returnForce * Time.deltaTime);
+            }
+            else
+            {
+                residualBody.GetTransform().position = Vector3.Lerp(residualBody.GetTransform().position, transform.position, returnForce * Time.deltaTime);
+            }
 
-            if(playerRigidbody.position == Vector32Vector2(residualBody.position))
+            if (playerRigidbody.position == Vector32Vector2(residualBody.GetTransform().position))
             {
                 break;
             }
@@ -285,19 +308,28 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator ReturnPlayerMovement()
+    IEnumerator ReturnPlayerMovement(bool wasSpirit)
     {
-        yield return new WaitUntil(() => Vector2.Distance(playerRigidbody.position, Vector32Vector2(residualBody.position)) <= acceptableJoinDistance );
-        ChangeSpiritAnimation();
+        yield return new WaitUntil(() => Vector2.Distance(playerRigidbody.position, Vector32Vector2(residualBody.GetTransform().position)) <= acceptableJoinDistance );
+        resetResidualBody();
+        residualBody.GetTransform().localPosition = Vector3.zero;
 
-        spiritSpriteRenderer.enabled = false;
-        playerMainCollider.enabled = true;
-        residualBody.parent = transform;
-        residualBody.transform.localPosition = Vector3.zero;
-        playerRigidbody.gravityScale = 1;
-        ChangePlayerLayer(true);
-        controller.Air.Disable();
-        controller.Terrain.Enable();
+        if (wasSpirit)
+        {
+            ChangeSpiritAnimation();
+            playerMainCollider.enabled = true;
+            playerRigidbody.gravityScale = 1;
+            controller.Air.Disable();
+            controller.Terrain.Enable();
+        }
+        else
+        {
+            residualBody.ActivateAura(false);
+        }
+            ChangePlayerLayer(true);
+        isReturning = false;
+
+
     }
     private Vector2 Vector32Vector2(Vector3 vector)
     {
@@ -357,12 +389,15 @@ public class Player : MonoBehaviour
         }
 
         playerType = newType;
-        playerSpriteRenderer.sprite = faces[(int) newType];
         SwitchColor();
 
         if (isSpirit)
         {
-            ChangeForm();
+            Change2SpiritForm();
+        }
+        else if(isGravity)
+        {
+            Change2GravityForm();
         }
     }
 
@@ -378,6 +413,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void resetResidualBody()
+    {
+        residualBody.ResetParent();
+        residualBody.ResetSpriteRenderer(playerType);
+
+    }
 
     #endregion
 
@@ -390,7 +431,7 @@ public class Player : MonoBehaviour
     #region AnimationHandlers
     private void SwitchColor()
     {
-        animator.SetBool("isYin", playerType == PlayerTypes.YIN ? true : false);
+        animator.SetBool("isYin", playerType == PlayerTypes.YIN);
         animator.SetTrigger("hasChangedColor");
     }
 
@@ -423,7 +464,6 @@ public class Player : MonoBehaviour
 
     }
 
-
     private void isMovingSwitch(Vector3 movementValue)
     {
         if (!isSpirit)
@@ -443,6 +483,12 @@ public class Player : MonoBehaviour
             playerSpriteRenderer.flipX = movementValue.x < 0;
         }
 
+    }
+
+    private void DeactivateActivateAura(bool activate)
+    {
+        auraAnimator.SetBool("isYin", playerType == PlayerTypes.YIN);
+        auraAnimator.SetBool("IsActive", activate);
     }
 
     #endregion

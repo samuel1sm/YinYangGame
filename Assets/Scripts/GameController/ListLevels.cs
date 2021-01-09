@@ -19,13 +19,14 @@ public class ListLevels : MonoBehaviour
         initial_position = transform.GetChild(0);
         gameManager = FindObjectOfType<GameManager>();
         int[] levels = gameManager.GetLevels();
+        int nonLevelScenes =  levels[levels.Length - 1] - levels.Length;
         int levelsUploaded = 0;
         foreach(int i in levels)
         {
             GameObject newButton = Instantiate(levelButton, initial_position);
             newButton.transform.localPosition = new Vector2(levelsUploaded * xOffset, levelsUploaded * yOffset);
             levelsUploaded++;
-            newButton.GetComponentInChildren<TextMeshProUGUI>().text = i.ToString();
+            newButton.GetComponentInChildren<TextMeshProUGUI>().text = (i - nonLevelScenes).ToString();
             newButton.GetComponentInChildren<Button>().onClick.AddListener(delegate { gameManager.ChangeScene(i); });
 
         }

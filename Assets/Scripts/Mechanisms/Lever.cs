@@ -5,8 +5,7 @@ using UnityEngine;
 public class Lever : GenericMechanism
 {
     private Animator animator;
-    [SerializeField] GenericMechanism gM;
-    [SerializeField] private bool isActivated = true;
+    [SerializeField] GenericMechanism item2BeAffected;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -18,7 +17,7 @@ public class Lever : GenericMechanism
         {
             animator.SetTrigger("activate");
 
-            gM.Activate(true);
+            item2BeAffected.Activate(true);
         }
     }
 
@@ -26,6 +25,11 @@ public class Lever : GenericMechanism
     void Start()
     {
         
+    }
+
+    public override bool GetStatus()
+    {
+        return isActivated;
     }
 
     // Update is called once per frame

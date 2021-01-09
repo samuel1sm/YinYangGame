@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
-    GameManager gameManager;
+    private static GameManager gameManager;
     [SerializeField] private int auxScenesQtd = 2;
     private void Awake()
     {
