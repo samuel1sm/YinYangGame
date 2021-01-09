@@ -47,11 +47,7 @@ public class ResidualBody : MonoBehaviour
                 }
                 boxes = newBoxes;
             }
-          
-
-
         }
-   
     }
 
 

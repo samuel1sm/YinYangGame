@@ -21,16 +21,23 @@ public class MovebleItems : MonoBehaviour
         IsActivate = activate;
         if (activate)
         {
-            boxRigidbody.gravityScale = 0;
+            GetComponent<SpriteRenderer>().color = Color.gray;
+            boxRigidbody.bodyType = RigidbodyType2D.Static;
+
             velocity = boxRigidbody.velocity;
-            boxRigidbody.velocity = Vector2.zero;
         }
         else
         {
-            print("caia");
+            GetComponent<SpriteRenderer>().color = Color.white;
+            boxRigidbody.bodyType = RigidbodyType2D.Dynamic;
             boxRigidbody.gravityScale = 1;
             boxRigidbody.velocity = velocity;
         }
 
-}
+    }
+
+    public bool GetIsHeavy()
+    {
+        return boxRigidbody.bodyType == RigidbodyType2D.Static;
+    }
 }
