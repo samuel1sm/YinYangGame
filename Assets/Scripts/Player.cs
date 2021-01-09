@@ -101,8 +101,10 @@ public class Player : MonoBehaviour
         }
         else
         {
-           movement = controller.Air.Movement.ReadValue<Vector2>();
-           UpdateSpiritMovement(movement);
+            playerRigidbody.velocity = Vector3.zero;
+
+            movement = controller.Air.Movement.ReadValue<Vector2>();
+            UpdateSpiritMovement(movement);
         }
 
         isMovingSwitch(movement);
@@ -111,21 +113,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-
-
-        //InteractWithItem();
-        if (isSpirit)
-        {
-            playerRigidbody.velocity = Vector3.zero;
-        }
-        else
-        {
-        }
-
-    }
-
+    
     private void LateUpdate()
     {
         
@@ -376,7 +364,6 @@ public class Player : MonoBehaviour
             playerRigidbody.velocity = Vector3.zero;
             playerRigidbody.AddForce(transform.up * jumpSpeed);
         }
-        print("asdasda " + jumpQtd);
 
     }
 

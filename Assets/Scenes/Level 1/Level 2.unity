@@ -372,11 +372,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1229320173794637411, guid: c7d12660c61845449a788f5ab451a919,
-        type: 3}
-      propertyPath: needKey
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1229320173794637415, guid: c7d12660c61845449a788f5ab451a919,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1459,49 +1454,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 81379378, guid: e883cf062e8aa1c4ba4d138f702adfc3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 295190691, guid: e883cf062e8aa1c4ba4d138f702adfc3, type: 3}
-      propertyPath: m_Color.r
-      value: 0.5188679
-      objectReference: {fileID: 0}
-    - target: {fileID: 295190691, guid: e883cf062e8aa1c4ba4d138f702adfc3, type: 3}
-      propertyPath: m_Color.g
-      value: 0.5164204
-      objectReference: {fileID: 0}
-    - target: {fileID: 295190691, guid: e883cf062e8aa1c4ba4d138f702adfc3, type: 3}
-      propertyPath: m_Color.b
-      value: 0.5164204
-      objectReference: {fileID: 0}
-    - target: {fileID: 588877301, guid: e883cf062e8aa1c4ba4d138f702adfc3, type: 3}
-      propertyPath: spriteColors.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 588877301, guid: e883cf062e8aa1c4ba4d138f702adfc3, type: 3}
-      propertyPath: spriteColors.Array.data[0]
-      value: 
-      objectReference: {fileID: 5904125487068711704, guid: ead417fb8a5da3c4ab26c80124e793b5,
-        type: 3}
-    - target: {fileID: 588877301, guid: e883cf062e8aa1c4ba4d138f702adfc3, type: 3}
-      propertyPath: spriteColors.Array.data[1]
-      value: 
-      objectReference: {fileID: -9119037557031223073, guid: f15653411f7049a43a88f0f40e34aa76,
-        type: 3}
-    - target: {fileID: 588877301, guid: e883cf062e8aa1c4ba4d138f702adfc3, type: 3}
-      propertyPath: layer2BeAffected.m_Bits
-      value: 2048
-      objectReference: {fileID: 0}
-    - target: {fileID: 588877301, guid: e883cf062e8aa1c4ba4d138f702adfc3, type: 3}
-      propertyPath: affectArea
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2084696760819429042, guid: e883cf062e8aa1c4ba4d138f702adfc3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3462391070607555228, guid: e883cf062e8aa1c4ba4d138f702adfc3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1561,6 +1513,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462391070607555230, guid: e883cf062e8aa1c4ba4d138f702adfc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e883cf062e8aa1c4ba4d138f702adfc3, type: 3}
@@ -2638,21 +2595,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2094548651644633922, guid: 370675de9d104cb488cf4556b9f65fd0,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.66366
-      objectReference: {fileID: 0}
-    - target: {fileID: 2094548651644633922, guid: 370675de9d104cb488cf4556b9f65fd0,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.66366
-      objectReference: {fileID: 0}
-    - target: {fileID: 2094548651644633922, guid: 370675de9d104cb488cf4556b9f65fd0,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.66366
-      objectReference: {fileID: 0}
     - target: {fileID: 2094548651644633923, guid: 370675de9d104cb488cf4556b9f65fd0,
         type: 3}
       propertyPath: m_Name
@@ -2875,13 +2817,7 @@ PrefabInstance:
       propertyPath: item2BeAffected
       value: 
       objectReference: {fileID: 583579655}
-    - target: {fileID: 7712228555915234840, guid: 162bb03eca8b8bb4c9a43a01f015e6d7,
-        type: 3}
-      propertyPath: extraHeightText
-      value: 0.06
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7712228555915234842, guid: 162bb03eca8b8bb4c9a43a01f015e6d7, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 162bb03eca8b8bb4c9a43a01f015e6d7, type: 3}
 --- !u!1001 &3300253248058707193
 PrefabInstance:

@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &81379379
 Transform:
   m_ObjectHideFlags: 0
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_SortingOrder: -1
   m_Sprite: {fileID: -9119037557031223073, guid: f15653411f7049a43a88f0f40e34aa76,
     type: 3}
-  m_Color: {r: 0.7686275, g: 0.7686275, b: 0.7686275, a: 1}
+  m_Color: {r: 0.5188679, g: 0.5164204, b: 0.5164204, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -198,7 +198,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb9427d5fb1afe4282448ef9da3ada5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
+  spriteColors:
+  - {fileID: 5904125487068711704, guid: ead417fb8a5da3c4ab26c80124e793b5, type: 3}
+  - {fileID: -9119037557031223073, guid: f15653411f7049a43a88f0f40e34aa76, type: 3}
+  layer2BeAffected:
+    serializedVersion: 2
+    m_Bits: 2048
+  affectArea: 1.25
 --- !u!1 &516259237
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,9 +442,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   playerType: 1
-  faces:
-  - {fileID: 3106341853739790030, guid: cfa9dbfe20992f547945dfed599aea65, type: 3}
-  - {fileID: 4723107735738678597, guid: c073913e2c79c944b95ae9735157b59c, type: 3}
   movementSpeed: 5
   jumpSpeed: 200
   maxJumpQtd: 1

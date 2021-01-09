@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7712228555915234833}
   - component: {fileID: 7712228555915234840}
   - component: {fileID: 7712228555915234841}
-  - component: {fileID: 7712228555915234842}
   m_Layer: 10
   m_Name: Button
   m_TagString: Untagged
@@ -28,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7712228555915234838}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.331, y: 0.107, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -125,6 +124,7 @@ MonoBehaviour:
     m_Bits: 4096
   item2BeAffected: {fileID: 0}
   isNormal: 1
+  extraHeightText: 0.06
 --- !u!60 &7712228555915234841
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -159,29 +159,3 @@ PolygonCollider2D:
       - {x: 0.20098615, y: -0.0066901967}
       - {x: 0.1948359, y: -0.0015692338}
       - {x: 0.19401217, y: 0.057470173}
---- !u!61 &7712228555915234842
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7712228555915234838}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.546875, y: 0.171875}
-    newSize: {x: 0.546875, y: 0.171875}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.546875, y: 0.171875}
-  m_EdgeRadius: 0

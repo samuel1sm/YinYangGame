@@ -8,13 +8,15 @@ public class ResidualBody : MonoBehaviour
     [SerializeField] private Sprite[] spriteColors;
     [SerializeField] private LayerMask layer2BeAffected;
     [SerializeField] private float affectArea;
+    private RaycastHit2D[] boxes;
     private bool auraIsActive;
     private Transform parent;
     private SpriteRenderer sprite;
     private Transform child;
     private void Awake()
     {
-        auraIsActive = false;
+        boxes = new RaycastHit2D[0];
+    auraIsActive = false;
         parent = transform.parent;
         sprite = GetComponent<SpriteRenderer>();
         child = transform.GetChild(0);
@@ -27,20 +29,31 @@ public class ResidualBody : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+
+    private void FixedUpdate()
     {
         if (auraIsActive)
         {
-            RaycastHit2D[] boxes = Physics2D.CircleCastAll(transform.position, affectArea, Vector3.left, 0, layer2BeAffected);
+            RaycastHit2D[] newBoxes = Physics2D.CircleCastAll(transform.position, affectArea, Vector3.left, 0, layer2BeAffected);
 
-            foreach (RaycastHit2D box in boxes)
+            if(newBoxes.Length > 0)
             {
-                box.rigidbody.gravityScale = 0;
+                foreach (RaycastHit2D box in newBoxes)
+                {
+                    MovebleItems moveble = box.transform.gameObject.GetComponent<MovebleItems>();
+                    if (!moveble.IsActivate)
+                        moveble.resetValues(true);
 
+                }
+                boxes = newBoxes;
             }
+          
+
 
         }
+   
     }
+
 
     private void OnDrawGizmos()
     {
@@ -55,8 +68,20 @@ public class ResidualBody : MonoBehaviour
 
     public void ActivateAura(bool activate)
     {
+
         child.gameObject.SetActive(activate);
         auraIsActive = activate;
+        if (!activate)
+        {
+            foreach (RaycastHit2D box in boxes)
+            {
+                MovebleItems moveble = box.transform.gameObject.GetComponent<MovebleItems>();
+                moveble.resetValues(false);
+
+            }
+
+            boxes = new RaycastHit2D[0];
+        }
     }
 
     public void ResetParent()
