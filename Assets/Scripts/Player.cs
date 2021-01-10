@@ -80,8 +80,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller.Terrain.Jump.performed += _ => Jump();
-        controller.Abilities.ChangeTypeYin.performed += _ => ChangePlayerType(PlayerTypes.YIN);
         controller.Abilities.ChangeTypeYang.performed += _ => ChangePlayerType(PlayerTypes.YANG);
+        controller.Abilities.ChangeTypeYin.performed += _ => ChangePlayerType(PlayerTypes.YIN);
         controller.Abilities.Interact.performed += _ => InteractWithItem();
         controller.Abilities.AttractionRepution.performed += _ => ActivateAttractRepution();
         controller.Abilities.AttractionRepution.canceled += _ => DeactivateAttractRepution();
@@ -94,24 +94,28 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 movement;
-        if (!isSpirit)
+        if (!isReturning)
         {
-            float movementValue = controller.Terrain.Movement.ReadValue<float>();
-            movement = new Vector3(movementValue, 0, 0);
+            Vector3 movement;
+            if (!isSpirit)
+            {
+                float movementValue = controller.Terrain.Movement.ReadValue<float>();
+                movement = new Vector3(movementValue, 0, 0);
 
+            }
+            else
+            {
+                playerRigidbody.velocity = Vector3.zero;
+
+                movement = controller.Air.Movement.ReadValue<Vector2>();
+                UpdateSpiritMovement(movement);
+            }
+
+            isMovingSwitch(movement);
+
+            transform.position += movement * Time.deltaTime * movementSpeed;
         }
-        else
-        {
-            playerRigidbody.velocity = Vector3.zero;
-
-            movement = controller.Air.Movement.ReadValue<Vector2>();
-            UpdateSpiritMovement(movement);
-        }
-
-        isMovingSwitch(movement);
-
-        transform.position += movement * Time.deltaTime * movementSpeed;
+       
     }
 
     // Update is called once per frame
@@ -362,7 +366,8 @@ public class Player : MonoBehaviour
     
     private void Jump()
     {
-        if (jumpQtd > 0)
+        
+        if (jumpQtd > 0 && !isSpirit)
         {
             jumpQtd--;
 

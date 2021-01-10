@@ -8,6 +8,8 @@ public class Teleporter : MonoBehaviour
     [SerializeField] private float increaseTime;
     [SerializeField] private float intensity;
     [SerializeField] float maxTime;
+    [SerializeField] private int[] ableToClickInt;
+
 
     private EndLevelController endLevelController;
     private SpriteRenderer sprite;
@@ -25,14 +27,36 @@ public class Teleporter : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if (VerifyMask(collision))
+        {
+
         StartCoroutine("ChangeLevel");
+        }
+    }
+
+    private bool VerifyMask(Collider2D collision)
+    {
+        foreach (int i in ableToClickInt)
+        {
+            if (collision.gameObject.layer == i)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        StopCoroutine("ChangeLevel");
-        count = 0;
-        material.SetVector("_Color", previousColor);
+        if (VerifyMask(collision))
+        {
+            StopCoroutine("ChangeLevel");
+            count = 0;
+            material.SetVector("_Color", previousColor);
+        }
+
     }
 
 

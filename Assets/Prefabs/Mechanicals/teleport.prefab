@@ -155,3 +155,4 @@ MonoBehaviour:
   increaseTime: 0.5
   intensity: 1.5
   maxTime: 1.5
+  ableToClickInt: 0c000000
