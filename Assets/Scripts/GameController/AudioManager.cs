@@ -7,15 +7,44 @@ public class AudioManager : MonoBehaviour
 
     [Range(0f, 1f)]
     [SerializeField] float efectsVolume = 1;
+    [Range(0f, 1f)]
+    [SerializeField] float musicVolume = 1;
 
     public  SoundAudioClip[] audioClips;
     private static Dictionary<Sound, float> soundTimerDictionary;
+    private AudioSource musicPlayerSource;
 
     private void Awake()
     {
         soundTimerDictionary = new Dictionary<Sound, float>();
         soundTimerDictionary[Sound.PlayerMove] = 0f;
+        int scene = GameManager.gameManager.GetThisScene();
+        GameObject musicPlayer = new GameObject("LevelSound");
+        musicPlayerSource = musicPlayer.AddComponent<AudioSource>();
+        musicPlayerSource.volume = musicVolume;
+
+        if (scene == 0)
+        {
+   
+            musicPlayerSource.clip = GetAudioClip(Sound.Menu).audioClip;
+            
+
+        }
+        else if (scene == 1)
+        {
+            musicPlayerSource.clip = GetAudioClip(Sound.LevelScreen).audioClip;
+
+        }
+        else
+        {
+            musicPlayerSource.clip = GetAudioClip(Sound.Level).audioClip;
+
+        }
+
+        musicPlayerSource.Play();
     }
+
+    
 
     public void PlaySound(Sound sound)
     {
@@ -75,12 +104,13 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        musicPlayerSource.volume = musicVolume;
+
     }
 }

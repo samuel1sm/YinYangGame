@@ -17,6 +17,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int GetThisScene()
+    {
+
+        return SceneManager.GetActiveScene().buildIndex;
+    }
     public int NextScene()
     {
         int nextScene = SceneManager.GetActiveScene().buildIndex + 1;

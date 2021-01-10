@@ -12,6 +12,8 @@ public class Door : GenericMechanism
 
     private void Awake()
     {
+        audioManager = FindObjectOfType<AudioManager>();
+
         animator = GetComponent<Animator>();
         animator.SetBool("isActivated", isActivated);
         //animator.SetBool("isOpen", isOpen);
@@ -23,8 +25,9 @@ public class Door : GenericMechanism
         {
             isActivated = !isActivated;
             animator.SetTrigger("OpenClose");
+            PlayAudio();
 
-        } 
+        }
 
     }
 
@@ -38,5 +41,10 @@ public class Door : GenericMechanism
     public override bool GetStatus()
     {
         return isActivated;
+    }
+
+    public override void PlayAudio()
+    {
+        audioManager.PlaySound(Sound.door);
     }
 }

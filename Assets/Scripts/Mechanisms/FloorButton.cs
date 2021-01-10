@@ -16,6 +16,7 @@ public class FloorButton : GenericMechanism
 
     private void Awake()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         previosIsHeavy = false;
         buttonCollider = GetComponent<Collider2D>();
         buttonAnimator = GetComponent<Animator>();
@@ -79,6 +80,7 @@ public class FloorButton : GenericMechanism
             isActivated = !isActivated;
             buttonAnimator.SetBool("isActivated", isActivated);
             item2BeAffected.Activate(true);
+            PlayAudio();
         }
     }
 
@@ -88,5 +90,11 @@ public class FloorButton : GenericMechanism
     public override bool GetStatus()
     {
         return isActivated;
+    }
+
+    public override void PlayAudio()
+    {
+        audioManager.PlaySound(Sound.button);
+
     }
 }

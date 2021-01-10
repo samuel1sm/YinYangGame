@@ -22,6 +22,14 @@ public enum Sound
     Repution,
     Yin,
     Yang,
-    Gravity
+    Gravity,
+    Menu,
+    LevelScreen,
+    Level,
+    button,
+    door,
+    teleport,
+    mouseClick
+    
     
 }

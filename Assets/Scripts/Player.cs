@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+
         controller.Terrain.Jump.performed += _ => Jump();
         controller.Abilities.ChangeTypeYang.performed += _ => ChangePlayerType(PlayerTypes.YANG);
         controller.Abilities.ChangeTypeYin.performed += _ => ChangePlayerType(PlayerTypes.YIN);

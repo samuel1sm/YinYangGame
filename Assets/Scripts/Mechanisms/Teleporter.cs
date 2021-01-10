@@ -16,9 +16,11 @@ public class Teleporter : MonoBehaviour
     private Material material;
     private Color previousColor;
     private float count;
+    private AudioSource teleportAudio;
     private void Awake()
     {
         count = 0;
+        teleportAudio = GetComponent<AudioSource>();
         endLevelController = FindObjectOfType<EndLevelController>();
         sprite = GetComponent<SpriteRenderer>();
         material = sprite.material;
@@ -52,6 +54,7 @@ public class Teleporter : MonoBehaviour
     {
         if (VerifyMask(collision))
         {
+            teleportAudio.Stop();
             StopCoroutine("ChangeLevel");
             count = 0;
             material.SetVector("_Color", previousColor);
@@ -62,6 +65,7 @@ public class Teleporter : MonoBehaviour
 
     IEnumerator ChangeLevel()
     {
+        teleportAudio.Play();
         while (true)
         {
             yield return new WaitForSeconds(increaseTime);

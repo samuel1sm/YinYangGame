@@ -8,6 +8,7 @@ public class Lever : GenericMechanism
     [SerializeField] GenericMechanism item2BeAffected;
     private void Awake()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         animator = GetComponent<Animator>();
         animator.SetBool("isActivated", isActivated);
     }
@@ -18,6 +19,8 @@ public class Lever : GenericMechanism
             animator.SetTrigger("activate");
 
             item2BeAffected.Activate(true);
+            PlayAudio();
+
         }
     }
 
@@ -36,5 +39,10 @@ public class Lever : GenericMechanism
     void Update()
     {
         
+    }
+
+    public override void PlayAudio()
+    {
+        audioManager.PlaySound(Sound.button);
     }
 }

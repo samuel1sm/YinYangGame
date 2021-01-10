@@ -43,7 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51c4047421216c74ba341e2bc216ec94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  efectsVolume: 0.082
+  efectsVolume: 0.11
+  musicVolume: 0.274
   audioClips:
   - sound: 0
     audioClip: {fileID: 8300000, guid: b304a9a3f2d3c8b42808997a30e1d5d0, type: 3}
@@ -66,3 +67,24 @@ MonoBehaviour:
   - sound: 6
     audioClip: {fileID: 8300000, guid: 995dca805f505e74cafa017f3fc6fa42, type: 3}
     audioTime: 1.39
+  - sound: 7
+    audioClip: {fileID: 8300000, guid: 841b6d261515b534bb85b340acb2ddd2, type: 3}
+    audioTime: 0
+  - sound: 8
+    audioClip: {fileID: 8300000, guid: ea555f57e6ab3a647b9ffa5b1f9333ab, type: 3}
+    audioTime: 0
+  - sound: 9
+    audioClip: {fileID: 8300000, guid: 494b121de1150744685216176264f702, type: 3}
+    audioTime: 0
+  - sound: 10
+    audioClip: {fileID: 8300000, guid: b228452e45b61a647b49c9bdb9092175, type: 3}
+    audioTime: 0.541
+  - sound: 11
+    audioClip: {fileID: 8300000, guid: b5fba71a102a59740b8c25fc5e65a863, type: 3}
+    audioTime: 0.924
+  - sound: 12
+    audioClip: {fileID: 8300000, guid: cc27cdbac6d23ec45bc4dd76b3460a2f, type: 3}
+    audioTime: 1.5
+  - sound: 13
+    audioClip: {fileID: 8300000, guid: f024bde615d6d34449a281fc0faee5c2, type: 3}
+    audioTime: 0
