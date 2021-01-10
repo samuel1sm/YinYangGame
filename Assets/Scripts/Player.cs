@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
                 movement = new Vector3(movementValue, 0, 0);
                 if (movement != Vector3.zero && jumpQtd > 0)
                 {
-                    audioM.PlaySound(Sound.PlayerMove);
+                    walkSound();
                     //AudioManager.PlaySound(Sound.PlayerMove);
                 }
 
@@ -197,6 +197,8 @@ public class Player : MonoBehaviour
         isGravity = !isGravity;
         if (isGravity)
         {
+            StartCoroutine("SpiritGravitySound", false);
+
             ChangePlayerLayer(false);
             residualBody.ActivateAura(true);
             resetResidualBody();
@@ -216,6 +218,7 @@ public class Player : MonoBehaviour
         isSpirit = !isSpirit;
         if (isSpirit)
         {
+            StartCoroutine("SpiritGravitySound", true);
             resetResidualBody();
 
             ChangeSpiritAnimation();
@@ -240,12 +243,15 @@ public class Player : MonoBehaviour
     private void ActivateAttractRepution()
     {
         StartCoroutine("MovebleObjects");
+        StartCoroutine("AttractionReputionSound");
         DeactivateActivateAura(true);
     }
 
     private void DeactivateAttractRepution()
     {
         StopCoroutine("MovebleObjects");
+        StopCoroutine("AttractionReputionSound");
+
         DeactivateActivateAura(false);
 
     }
@@ -281,7 +287,7 @@ public class Player : MonoBehaviour
 
 
             }
-
+            DeactivateActivateAura(true);
             yield return new WaitForEndOfFrame();
 
         }
@@ -316,6 +322,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitUntil(() => Vector2.Distance(playerRigidbody.position, Vector32Vector2(residualBody.GetTransform().position)) <= acceptableJoinDistance );
         resetResidualBody();
+        StopCoroutine("SpiritGravitySound");
         residualBody.GetTransform().localPosition = Vector3.zero;
 
         if (wasSpirit)
@@ -420,7 +427,9 @@ public class Player : MonoBehaviour
         }
 
         playerType = newType;
+        changeFormSound(playerType == PlayerTypes.YIN);
         SwitchColor();
+
 
         if (isSpirit)
         {
@@ -520,6 +529,66 @@ public class Player : MonoBehaviour
     {
         auraAnimator.SetBool("isYin", playerType == PlayerTypes.YIN);
         auraAnimator.SetBool("IsActive", activate);
+    }
+
+    #endregion
+
+    #region AnimationHandlers
+
+    IEnumerator SpiritGravitySound(bool isSpirit)
+    {
+        while (true)
+        {
+
+            float time = isSpirit ? 1.265f : 1.390f;
+
+
+            audioM.PlaySound(isSpirit ? Sound.Spirit : Sound.Gravity);
+
+
+            yield return new WaitForSeconds(time);
+
+
+        }
+    }
+
+
+    IEnumerator AttractionReputionSound( )
+    {
+        while (true)
+        {
+            bool isAttraction = playerType == PlayerTypes.YIN;
+            float time = isAttraction ? 0.837f :1.293f ;
+
+          
+            audioM.PlaySound(isAttraction? Sound.Attraction : Sound.Repution);
+            
+
+            yield return new WaitForSeconds(time);
+
+
+        }
+    }
+
+    private void walkSound()
+    {
+        audioM.PlaySound(Sound.PlayerMove);
+
+    }
+
+    private void changeFormSound(bool isYin)
+    {
+        if (isYin)
+        {
+            audioM.PlaySound(Sound.Yin);
+
+        }
+        else
+        {
+            audioM.PlaySound(Sound.Yang);
+
+        }
+
     }
 
     #endregion

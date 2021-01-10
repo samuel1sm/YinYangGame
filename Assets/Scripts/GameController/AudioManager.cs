@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public  SoundAudioClip[] audioClips;
 
+    [Range(0f, 1f)]
+    [SerializeField] float efectsVolume = 1;
+
+    public  SoundAudioClip[] audioClips;
     private static Dictionary<Sound, float> soundTimerDictionary;
 
     private void Awake()
@@ -19,11 +22,10 @@ public class AudioManager : MonoBehaviour
         SoundAudioClip sc = GetAudioClip(sound);
         if (CanPlaySound(sc))
         {
-            print("dada");
             GameObject soundGameObject = new GameObject("Sound");
             AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
-            audioSource.PlayOneShot(sc.audioClip);
-            Destroy(soundGameObject, soundTimerDictionary[Sound.PlayerMove]);
+            audioSource.PlayOneShot(sc.audioClip, efectsVolume);
+            Destroy(soundGameObject, sc.audioClip.length);
         }
     }
 
@@ -53,7 +55,6 @@ public class AudioManager : MonoBehaviour
                 {
                     return true;
                 }
-                break;
 
         }
     }

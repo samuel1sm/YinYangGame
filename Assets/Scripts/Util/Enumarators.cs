@@ -21,6 +21,7 @@ public enum Sound
     Attraction,
     Repution,
     Yin,
-    Yang
+    Yang,
+    Gravity
     
 }

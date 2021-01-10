@@ -43,7 +43,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51c4047421216c74ba341e2bc216ec94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  efectsVolume: 0.082
   audioClips:
   - sound: 0
     audioClip: {fileID: 8300000, guid: b304a9a3f2d3c8b42808997a30e1d5d0, type: 3}
     audioTime: 0.4
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: e3b256cd48fe59143809c54a8cf4b730, type: 3}
+    audioTime: 0
+  - sound: 5
+    audioClip: {fileID: 8300000, guid: 4edc9e40c53b92f41a0eff3cc31a21c4, type: 3}
+    audioTime: 0
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: c33e3c647e9288044b7ce27533681398, type: 3}
+    audioTime: 0.837
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: 4ac4b32d620ee1a4a9cc745a4f5e96dc, type: 3}
+    audioTime: 1.293
+  - sound: 1
+    audioClip: {fileID: 8300000, guid: f59510be4c42cce409880ba029134c27, type: 3}
+    audioTime: 1.265
+  - sound: 6
+    audioClip: {fileID: 8300000, guid: 995dca805f505e74cafa017f3fc6fa42, type: 3}
+    audioTime: 1.39
