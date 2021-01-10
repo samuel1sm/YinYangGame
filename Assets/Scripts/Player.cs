@@ -20,11 +20,12 @@ public class Player : MonoBehaviour
     private ResidualBody residualBody;
     private Animator auraAnimator;
     private Animator animator;
-
+    private AudioManager audioM;
     private Vector3 testSize;
     private bool isSpirit;
     private bool isGravity;
     private bool isReturning;
+
     private int jumpQtd ;
 
     [Header("Player Configs")]
@@ -37,7 +38,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float raycastAreaMaxRadius = .5f;
     [SerializeField] private float returnForce = 0.5f;
     [SerializeField] private float acceptableJoinDistance = 0.5f;
-    [SerializeField] private float waterVerificationDistance = 0.5f;
     [SerializeField] private float extraDistance = 2;
 
     //[SerializeField] private float reaturnValue = 0.5f;
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1f;
-
+        audioM = FindObjectOfType<AudioManager>();
         controller = new PlayerController();
         isReturning = false;
         auraAnimator = GetComponentsInChildren<Animator>()[1];
@@ -101,6 +101,11 @@ public class Player : MonoBehaviour
             {
                 float movementValue = controller.Terrain.Movement.ReadValue<float>();
                 movement = new Vector3(movementValue, 0, 0);
+                if (movement != Vector3.zero && jumpQtd > 0)
+                {
+                    audioM.PlaySound(Sound.PlayerMove);
+                    //AudioManager.PlaySound(Sound.PlayerMove);
+                }
 
             }
             else
@@ -108,6 +113,8 @@ public class Player : MonoBehaviour
                 playerRigidbody.velocity = Vector3.zero;
 
                 movement = controller.Air.Movement.ReadValue<Vector2>();
+             
+
                 UpdateSpiritMovement(movement);
             }
 
@@ -115,7 +122,7 @@ public class Player : MonoBehaviour
 
             transform.position += movement * Time.deltaTime * movementSpeed;
         }
-       
+  
     }
 
     // Update is called once per frame
@@ -219,8 +226,6 @@ public class Player : MonoBehaviour
             playerRigidbody.gravityScale = 0;
             isReturning = false;
 
-
-
         }
         else
         {
@@ -286,6 +291,7 @@ public class Player : MonoBehaviour
 
     IEnumerator ResetResidualBody(bool wasSpirit)
     {
+        isReturning = true;
         while (true)
         {
             if (wasSpirit)

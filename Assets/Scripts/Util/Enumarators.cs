@@ -13,3 +13,14 @@ public enum LayersTypes
     YANG = 9,
     PLAYER = 12
 }
+
+public enum Sound
+{
+    PlayerMove,
+    Spirit,
+    Attraction,
+    Repution,
+    Yin,
+    Yang
+    
+}
