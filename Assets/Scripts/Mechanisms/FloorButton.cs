@@ -7,7 +7,7 @@ public class FloorButton : GenericMechanism
     [SerializeField] private bool isNormal;
     [SerializeField] private int[] ableToClickInt;
     [SerializeField] private LayerMask ableToClick;
-    [SerializeField] GenericMechanism item2BeAffected;
+    [SerializeField] GenericMechanism[] item2BeAffected;
     [SerializeField] float extraHeightText;
     private Animator buttonAnimator;
     private Collider2D buttonCollider;
@@ -75,11 +75,15 @@ public class FloorButton : GenericMechanism
 
     public override void Activate(bool canOpen)
     {
-        if (canOpen)
+        if (canOpen && item2BeAffected != null)
         {
             isActivated = !isActivated;
             buttonAnimator.SetBool("isActivated", isActivated);
-            item2BeAffected.Activate(true);
+            foreach (GenericMechanism gm in item2BeAffected)
+            {
+
+                gm.Activate(true);
+            }
             PlayAudio();
         }
     }

@@ -446,11 +446,10 @@ MonoBehaviour:
   jumpSpeed: 200
   maxJumpQtd: 1
   extraHeightText: 0.03
-  moveObjectsForce: 3
-  raycastAreaMaxRadius: 0.75
-  returnForce: 2
+  moveObjectsForce: 2
+  raycastAreaMaxRadius: 1.23
+  returnForce: 5
   acceptableJoinDistance: 0.01
-  waterVerificationDistance: 0.13
   extraDistance: 0.4
 --- !u!50 &3462391070607555217
 Rigidbody2D:

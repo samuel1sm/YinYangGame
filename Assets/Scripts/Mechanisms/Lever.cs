@@ -14,7 +14,7 @@ public class Lever : GenericMechanism
     }
     public override void Activate(bool canOpen)
     {
-        if (!needKey)
+        if (!needKey && item2BeAffected != null)
         {
             animator.SetTrigger("activate");
 

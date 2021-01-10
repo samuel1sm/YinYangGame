@@ -6,8 +6,9 @@ public class MovebleItems : MonoBehaviour
 {
     private Vector3 velocity;
     private Rigidbody2D boxRigidbody;
+    private float gravityScale;
+    private Color previusColor;
     private bool isActivate;
-
     public bool IsActivate { get => isActivate; set => isActivate = value; }
 
     private void Awake()
@@ -21,17 +22,18 @@ public class MovebleItems : MonoBehaviour
         IsActivate = activate;
         if (activate)
         {
+            previusColor = GetComponent<SpriteRenderer>().color;
             GetComponent<SpriteRenderer>().color = Color.gray;
             boxRigidbody.bodyType = RigidbodyType2D.Static;
-
+            gravityScale = boxRigidbody.gravityScale;
             velocity = boxRigidbody.velocity;
         }
         else
         {
-            GetComponent<SpriteRenderer>().color = Color.white;
+            GetComponent<SpriteRenderer>().color = previusColor;
             boxRigidbody.bodyType = RigidbodyType2D.Dynamic;
-            boxRigidbody.gravityScale = 1;
-            boxRigidbody.velocity = velocity;
+            boxRigidbody.gravityScale = gravityScale;
+            //boxRigidbody.velocity = velocity;
         }
 
     }

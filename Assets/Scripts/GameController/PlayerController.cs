@@ -95,6 +95,17 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""b88dcaa6-3f22-454f-87d7-34e202cb246c"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttractionRepution"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""40244fe9-56d8-4327-8e47-db94a8ac8c0a"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",

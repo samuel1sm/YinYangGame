@@ -10,6 +10,11 @@ public class HudController : MonoBehaviour
         GameManager.gameManager.ChangeScene(1);
     }
 
+    public void Go2MainMenu()
+    {
+        GameManager.gameManager.ChangeScene(0);
+    }
+
     public void ExitGame()
     {
         GameManager.gameManager.QuitGame();

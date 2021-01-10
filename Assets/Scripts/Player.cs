@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveObjectsForce = 2f;
     [SerializeField] private float raycastAreaMaxRadius = .5f;
     [SerializeField] private float returnForce = 0.5f;
+
     [SerializeField] private float acceptableJoinDistance = 0.5f;
     [SerializeField] private float extraDistance = 2;
 
@@ -222,7 +223,8 @@ public class Player : MonoBehaviour
             StartCoroutine("SpiritGravitySound", true);
             resetResidualBody();
 
-            ChangeSpiritAnimation();
+            animator.SetTrigger("isSpirit");
+
             ChangePlayerLayer(false);
             controller.Terrain.Disable();
             controller.Air.Enable();
@@ -328,7 +330,8 @@ public class Player : MonoBehaviour
 
         if (wasSpirit)
         {
-            ChangeSpiritAnimation();
+            animator.SetTrigger("isNotSpirit");
+
             playerMainCollider.enabled = true;
             playerRigidbody.gravityScale = 1;
             controller.Air.Disable();
