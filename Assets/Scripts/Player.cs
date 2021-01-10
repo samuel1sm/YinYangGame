@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
     #region UnityMethods
     private void Awake()
     {
+        Time.timeScale = 1f;
+
         controller = new PlayerController();
         isReturning = false;
         auraAnimator = GetComponentsInChildren<Animator>()[1];
@@ -123,7 +125,7 @@ public class Player : MonoBehaviour
             IsGrounded();
         }
 
-        ActivateController(!PauseMenu.GameIsPaused);
+        ActivateController(!PauseMenu.GameIsPaused || !EndLevelController.GameIsEnded);
 
     }
 
@@ -218,6 +220,8 @@ public class Player : MonoBehaviour
         }
         else
         {
+            playerMainCollider.enabled = false;
+
             StartCoroutine(ResetResidualBody(true));
             StartCoroutine(ReturnPlayerMovement(true));
 
@@ -373,8 +377,16 @@ public class Player : MonoBehaviour
     {
         if (activate)
         {
-            controller.Terrain.Enable();
-            controller.Air.Enable();
+            if (isSpirit)
+            {
+                controller.Terrain.Disable();
+                controller.Air.Enable();
+            }
+            else
+            {
+                controller.Terrain.Enable();
+                controller.Air.Disable();
+            }
             controller.Abilities.Enable();
         }
         else

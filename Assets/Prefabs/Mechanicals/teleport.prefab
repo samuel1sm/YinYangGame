@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 8179684199050747689}
   - component: {fileID: 8179684199050747670}
   - component: {fileID: 8179684199050747688}
-  m_Layer: 10
+  - component: {fileID: 1946905853}
+  - component: {fileID: 1946905854}
+  m_Layer: 0
   m_Name: teleport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,3 +114,44 @@ PolygonCollider2D:
       - {x: -0.3831892, y: 0.25}
       - {x: -1, y: -0.25}
       - {x: 1, y: -0.25}
+--- !u!61 &1946905853
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8179684199050747671}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000047683716, y: 0.19199246}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 0.5}
+    newSize: {x: 1, y: 0.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.4994478, y: 0.8839849}
+  m_EdgeRadius: 0
+--- !u!114 &1946905854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8179684199050747671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dbdb5d5cbb83f041b645857dac653fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  increaseTime: 0.5
+  intensity: 1.5
+  maxTime: 1.5

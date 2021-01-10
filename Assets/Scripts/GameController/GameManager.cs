@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     {
         if (gameManager == null)
         {
-
             gameManager = this;
             DontDestroyOnLoad(gameManager);
         }
@@ -16,6 +15,17 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public int NextScene()
+    {
+        int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+        if (SceneManager.sceneCountInBuildSettings == nextScene)
+        {
+            return 0;
+        }
+
+        return nextScene;
     }
 
     public void ResetScene()
