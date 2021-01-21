@@ -2144,6 +2144,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlaceHoder (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7113691544196535756, guid: 129ce7d4f6146de45ba9706a6c948ce0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 129ce7d4f6146de45ba9706a6c948ce0, type: 3}
 --- !u!4 &1047707799 stripped
@@ -2809,6 +2814,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlaceHoder (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7113691544196535756, guid: 129ce7d4f6146de45ba9706a6c948ce0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 129ce7d4f6146de45ba9706a6c948ce0, type: 3}
@@ -4464,6 +4474,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlaceHoder
+      objectReference: {fileID: 0}
+    - target: {fileID: 7113691544196535756, guid: 129ce7d4f6146de45ba9706a6c948ce0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 129ce7d4f6146de45ba9706a6c948ce0, type: 3}

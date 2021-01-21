@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -453,12 +453,12 @@ PrefabInstance:
     - target: {fileID: 7666931398885969084, guid: bc20915e81a540c4f955bcb3aa8a5ef8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7467097
+      value: 0.751582
       objectReference: {fileID: 0}
     - target: {fileID: 7666931398885969084, guid: bc20915e81a540c4f955bcb3aa8a5ef8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.1003314
+      value: 2.7682805
       objectReference: {fileID: 0}
     - target: {fileID: 7666931398885969085, guid: bc20915e81a540c4f955bcb3aa8a5ef8,
         type: 3}
@@ -492,7 +492,7 @@ PrefabInstance:
     - target: {fileID: 8009727122449608408, guid: 83b843ae3e08cb84ea6136a52572f508,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.84
+      value: 0.613
       objectReference: {fileID: 0}
     - target: {fileID: 8009727122449608408, guid: 83b843ae3e08cb84ea6136a52572f508,
         type: 3}
@@ -543,6 +543,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DestructblleObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 8612006924038351557, guid: 83b843ae3e08cb84ea6136a52572f508,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.3490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 8612006924038351557, guid: 83b843ae3e08cb84ea6136a52572f508,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.33423817
+      objectReference: {fileID: 0}
+    - target: {fileID: 8612006924038351557, guid: 83b843ae3e08cb84ea6136a52572f508,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.33423817
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83b843ae3e08cb84ea6136a52572f508, type: 3}
@@ -1113,12 +1128,12 @@ PrefabInstance:
     - target: {fileID: 8009727122449608408, guid: 83b843ae3e08cb84ea6136a52572f508,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 4.997
       objectReference: {fileID: 0}
     - target: {fileID: 8009727122449608408, guid: 83b843ae3e08cb84ea6136a52572f508,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.85
+      value: 1.388
       objectReference: {fileID: 0}
     - target: {fileID: 8009727122449608408, guid: 83b843ae3e08cb84ea6136a52572f508,
         type: 3}
@@ -1169,6 +1184,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DestructblleObject (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8612006924038351557, guid: 83b843ae3e08cb84ea6136a52572f508,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.3490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 8612006924038351557, guid: 83b843ae3e08cb84ea6136a52572f508,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.33423817
+      objectReference: {fileID: 0}
+    - target: {fileID: 8612006924038351557, guid: 83b843ae3e08cb84ea6136a52572f508,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.33423817
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83b843ae3e08cb84ea6136a52572f508, type: 3}
@@ -1418,6 +1448,11 @@ PrefabInstance:
     - target: {fileID: 3107891140059210395, guid: 5efafab67f026424dbaa54b336dd3371,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3107891140175176405, guid: 5efafab67f026424dbaa54b336dd3371,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3107891140175176406, guid: 5efafab67f026424dbaa54b336dd3371,

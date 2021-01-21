@@ -549,7 +549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press "Q" To Use repulsion
+  m_text: "Press \"Q\" To Use \r\nrepulsion"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4775,7 +4775,7 @@ PrefabInstance:
     - target: {fileID: 6550700416035883910, guid: db76f711ea5389b4fb305391fa999a54,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.52
+      value: 0.88
       objectReference: {fileID: 0}
     - target: {fileID: 6550700416035883910, guid: db76f711ea5389b4fb305391fa999a54,
         type: 3}
@@ -4821,6 +4821,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550700416035883910, guid: db76f711ea5389b4fb305391fa999a54,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.6953
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550700416035883910, guid: db76f711ea5389b4fb305391fa999a54,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.6953
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550700416035883910, guid: db76f711ea5389b4fb305391fa999a54,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.6953
       objectReference: {fileID: 0}
     - target: {fileID: 6550700416519232271, guid: db76f711ea5389b4fb305391fa999a54,
         type: 3}
